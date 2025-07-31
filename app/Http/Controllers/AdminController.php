@@ -1,0 +1,137 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class AdminController extends Controller
+{
+    
+    public function viewadmindashboard()
+    {
+        // Logic to display the admin dashboard
+        return view('admin.dashboard');
+    }
+
+    public function viewadminsettings()
+    {
+        // Logic to display the admin settings page
+        return view('admin.settings');
+    }
+
+    public function viewadminsize()
+    {
+        // Logic to display the admin size management page
+        return view('admin.size');
+    }
+
+    public function addadminsize()
+    {
+        // Logic to display the page for adding a new size
+        return view('admin.addsize');
+    }
+
+    public function editsize()
+    {
+        // Logic to display the page for editing an existing size
+        return view('admin.editsize');
+    }
+
+    public function viewcolor()
+    {
+        // Logic to display the admin color management page
+        return view('admin.color');
+    }
+
+    public function addadmincolor()
+    {
+        // Logic to display the page for adding a new color
+        return view('admin.addcolor');
+    }
+
+    public function editcolor()
+    {
+        // Logic to display the page for editing an existing color
+        return view('admin.editcolor');
+    }
+
+    public function viewcountry()
+    {
+        // Logic to display the admin country management page
+        return view('admin.country');
+    }
+
+    public function viewaddcountry()
+    {
+        // Logic to display the page for adding a new country
+        return view('admin.addcountry');
+    }
+
+    public function vieweditcountry()
+    {
+        // Logic to display the page for editing an existing country
+        return view('admin.editcountry');
+    }
+    
+    public function viewshippingcoast()
+    {
+        // Logic to display the admin shipping coast management page
+        return view('admin.shippingcoast');
+    }
+
+     public function vieweditshippingcoast()
+    {
+        // Logic to display the admin shipping coast management page
+        return view('admin.editshippingcoast');
+    }
+
+
+     public function viewfaq()
+    {
+        // Logic to display the FAQ management page
+        return view('admin.faq');
+    }
+
+    public function vieweditfaq()
+    {
+        // Logic to display the page for editing an existing FAQ
+        return view('admin.editfaq');
+    }
+
+    public function viewaddfaq()
+    {
+        // Logic to display the page for adding a new FAQ
+        return view('admin.addfaq');
+    }
+
+    public function viewregistercustomer()
+    {
+        // Logic to display the page for registering a new customer
+        return view('admin.registercustomer');
+    }
+
+    public function viewpagesettings()
+    {
+        // Logic to display the page for managing page settings
+        return view('admin.pagesettings');
+    }
+
+    public function viewsocialmedia()
+    {
+        // Logic to display the social media settings page
+        return view('admin.socialmedia');
+    }
+    public function viewsubscriber(){
+        // Logic to display the social media settings page
+        return view('admin.subscriber');
+    }
+
+
+    public function viewadminprofile()
+    {
+        // Logic to display the admin profile page
+        return view('admin.adminprofile');
+    }
+    
+}
