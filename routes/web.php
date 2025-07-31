@@ -83,3 +83,5 @@ Route::get('/admin/services', [App\Http\Controllers\SliderController::class, 'vi
 Route::get('/admin/addservice', [App\Http\Controllers\SliderController::class, 'viewaddservice'])->name('viewaddservice');
 Route::get('/admin/editservice', [App\Http\Controllers\SliderController::class, 'vieweditservice'])->name('vieweditservice');
 
+//settings routes
+Route::post('/admin/savelogo', [App\Http\Controllers\SettingController::class, 'saveLogo']);

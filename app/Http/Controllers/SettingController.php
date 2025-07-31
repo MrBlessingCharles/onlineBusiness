@@ -8,25 +8,29 @@ use App\Models\logoimage;
 class SettingController extends Controller
 {
    
-    public function viewSettings()
-    {
-        // Logic to display the settings page
-        $logoimages = logoimage::first();
-        return view('admin.settings', compact('logoimages'));
-    }
-
-    public function updateLogo(Request $request)
-    {
-        // Logic to handle logo update
-        $request->validate([
-            'photo_logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    public function savelogo(){
+        $this->validate(request(), [
+            'logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+    
+    //file name with extension
+        $fileNameWithExt = request()->file('logo')->getClientOriginalName();
+        //just file name
+        $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+        //just extension
+        $extension = request()->file('logo')->getClientOriginalExtension();
+        //file name to store
+        $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+        //upload file
+        request()->file('logo')->storeAs('public/logo', $fileNameToStore);
 
-        // Store the logo image and update the database
-        $logoImage = new \App\Models\logoimage();
-        $logoImage->logo_name = $request->file('photo_logo')->store('logos', 'public');
+        //save logo in database
+        $logoImage = new logoimage;
+        $logoImage->logo = $fileNameToStore;
         $logoImage->save();
 
-        return redirect()->back()->with('success', 'Logo updated successfully!');
+        return redirect()->back()->with('success', 'Logo saved successfully!');
     }
+    
+   
 }

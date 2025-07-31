@@ -37,8 +37,12 @@
                         </ul>
                         <div class="tab-content">
                            <div class="tab-pane active" id="tab_1">
-                              <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
-                                 <div class="box box-info">
+                              <form class="form-horizontal" action="{{ $logoImages ? url('admin/updatelogo', [$logoImages->id])  : url('admin/savelogo') }}" method="post" enctype="multipart/form-data">
+                                 @csrf
+                                 @if($logoImages)
+                                    @method('PUT')   
+                                 @endif
+                              <div class="box box-info">
                                     <div class="box-body">
                                        <div class="form-group">
                                           <label for="" class="col-sm-2 control-label">Existing Photo</label>
@@ -55,7 +59,7 @@
                                        <div class="form-group">
                                           <label for="" class="col-sm-2 control-label"></label>
                                           <div class="col-sm-6">
-                                             <button type="submit" class="btn btn-success pull-left" name="form1"></button>
+                                             <button type="submit" class="btn btn-success pull-left" name="form1">{{ $logoImages ? 'Update Logo' : 'Save Logo'}}</button>
                                           </div>
                                        </div>
                                     </div>
