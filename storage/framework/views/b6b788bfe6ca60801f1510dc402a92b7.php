@@ -1,7 +1,7 @@
-@extends('admin_layout.master')
-@section('title', 'Size List')
 
-@section('content')
+<?php $__env->startSection('title', 'Size List'); ?>
+
+<?php $__env->startSection('content'); ?>
  
  <!-- Start content -->
          <div class="content-wrapper">
@@ -10,34 +10,34 @@
                   <h1>Edit Color</h1>
                </div>
                <div class="content-header-right">
-                  <a href="{{url('admin/color')}}" class="btn btn-primary btn-sm">View All</a>
+                  <a href="<?php echo e(url('admin/color')); ?>" class="btn btn-primary btn-sm">View All</a>
                </div>
             </section>
 
-             @if(session('status'))
+             <?php if(session('status')): ?>
             <section class="content" style="min-height:auto;margin-bottom: -30px;">
                   <div class="row">
                   <div class="col-md-12">
                      <div class="callout callout-success">
-                        <p>{{Session::get("status")}}</p>
+                        <p><?php echo e(Session::get("status")); ?></p>
                      </div>
                   </div>
                   </div>
             </section>
-         @endif
+         <?php endif; ?>
             <section class="content">
                <div class="row">
                   <div class="col-md-12">
-                     <form class="form-horizontal" action="{{url('admin/updatecolor', [$color->id])}}" method="post">
-                         @csrf
-                        @method('PUT')
+                     <form class="form-horizontal" action="<?php echo e(url('admin/updatecolor', [$color->id])); ?>" method="post">
+                         <?php echo csrf_field(); ?>
+                        <?php echo method_field('PUT'); ?>
 
                         <div class="box box-info">
                            <div class="box-body">
                               <div class="form-group">
                                  <label for="" class="col-sm-2 control-label">Color Name <span>*</span></label>
                                  <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="color_name" value="{{ $color->color_name }}" >
+                                    <input type="text" class="form-control" name="color_name" value="<?php echo e($color->color_name); ?>" >
                                  </div>
                               </div>
                               <div class="form-group">
@@ -72,4 +72,5 @@
          </div>
 		 <!-- End content -->
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin_layout.master', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\basiclessons\resources\views/admin/editcolor.blade.php ENDPATH**/ ?>

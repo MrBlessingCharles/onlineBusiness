@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\size;
+use App\Models\color;
+use App\Models\banner;
 use App\Models\favicon;
 use App\Models\Message;
 use App\Models\logoimage;
+use App\Models\newsletter;
 use App\Models\information;
 use App\Models\Metasection;
 use App\Models\onoffsection;
 use Illuminate\Http\Request;
+use App\Models\Paymentsetting;
 use App\Models\Productsetting;
 use App\Models\featproductsection;
 use App\Http\Controllers\Controller;
@@ -37,16 +42,23 @@ class AdminController extends Controller
         $featuredproductsection = featproductsection::first();
         $latestproductsection = latestproductsection::first();
         $popularproductsection = popularproductsection::first();
+        $newsletter = newsletter::first(); 
+        $banner = banner::first();
+        $paymentsetting = Paymentsetting::first();
         // Logic to display the admin settings page
         return view('admin.settings', compact('logoImages', 'favicons', 
         'information', 'message', 'productsetting','onoffsection', 'metasection', 
-        'featuredproductsection', 'latestproductsection', 'popularproductsection'));
+        'featuredproductsection', 'latestproductsection', 'popularproductsection', 'newsletter', 
+        'banner', 'paymentsetting'));
     }
 
     public function viewadminsize()
     {
+
+        $sizes = size::get();
+        $increment = 1;
         // Logic to display the admin size management page
-        return view('admin.size');
+        return view('admin.size' , compact('sizes' , 'increment'));
     }
 
     public function addadminsize()
@@ -55,16 +67,14 @@ class AdminController extends Controller
         return view('admin.addsize');
     }
 
-    public function editsize()
-    {
-        // Logic to display the page for editing an existing size
-        return view('admin.editsize');
-    }
+  
 
     public function viewcolor()
     {
+        $colors = color::get();
+        $increment = 1;
         // Logic to display the admin color management page
-        return view('admin.color');
+        return view('admin.color' , compact('colors', 'increment'));
     }
 
     public function addadmincolor()
@@ -73,11 +83,7 @@ class AdminController extends Controller
         return view('admin.addcolor');
     }
 
-    public function editcolor()
-    {
-        // Logic to display the page for editing an existing color
-        return view('admin.editcolor');
-    }
+
 
     public function viewcountry()
     {

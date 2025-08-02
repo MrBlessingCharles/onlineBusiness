@@ -2,13 +2,16 @@
 
 
 namespace App\Http\Controllers;
+use App\Models\banner;
 use App\Models\favicon;
 use App\Models\Message;
 use App\Models\logoimage;
+use App\Models\newsletter;
 use App\Models\information;
 use App\Models\Metasection;
 use App\Models\onoffsection;
 use Illuminate\Http\Request;
+use App\Models\Paymentsetting;
 use App\Models\Productsetting;
 use App\Models\featproductsection;
 use App\Http\Controllers\Controller;
@@ -460,4 +463,156 @@ class SettingController extends Controller
 
         return redirect()->back()->with('status', 'Popular product section saved successfully!');
     }
+    //UPDATE POPULAR PRODUCT SECTION
+
+    Public function updatePopularProductSection(Request $request, $id){
+        $request->validate([
+            'popular_product_title' => 'required',
+            'popular_product_subtitle' => 'required',
+        ]);
+
+        // Find the popular product section by id
+        $popularproductsection = popularproductsection::find($id);
+        if (!$popularproductsection) {
+            return redirect()->back()->with('error', 'Popular product section not found.');
+        }
+
+        // Update popular product section
+        $popularproductsection->popular_product_title = $request->input('popular_product_title');
+        $popularproductsection->popular_product_subtitle = $request->input('popular_product_subtitle');
+        $popularproductsection->update();
+
+        return redirect()->back()->with('status', 'Popular product section updated successfully!');
+    }
+    //SAVE NEWSLETTER
+
+    public function saveNewsletter(Request $request){
+        $request->validate([
+            'newsletter_text' => 'required',
+        ]);
+
+        // Save or update newsletter
+        $newsletter = new newsletter;
+        $newsletter->newsletter_text = $request->input('newsletter_text');
+        $newsletter->save();
+
+        return redirect()->back()->with('status', 'Newsletter saved successfully!');
+    }
+
+    //UPDATE NEWSLETTER
+    public function updateNewsletter(Request $request, $id){
+        $request->validate([
+            'newsletter_text' => 'required',
+        ]);
+
+        // Find the newsletter by id
+        $newsletter = newsletter::find($id);
+        if (!$newsletter) {
+            return redirect()->back()->with('error', 'Newsletter not found.');
+        }
+
+        // Update newsletter
+        $newsletter->newsletter_text = $request->input('newsletter_text');
+        $newsletter->update();
+
+        return redirect()->back()->with('status', 'Newsletter updated successfully!');
+    }
+
+    //SAVE BANNER
+    public function saveBanner(Request $request){
+        $request->validate([
+            'photo' => 'required|image|nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        //file name with extension
+        $fileNameWithExt = $request->file('photo')->getClientOriginalName();
+        //just file name
+        $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+        //just extension
+        $extension = $request->file('photo')->getClientOriginalExtension();
+        //file name to store
+        $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+        //upload file
+        $path = $request->file('photo')->storeAs('public/banner', $fileNameToStore);
+
+        //save banner in database
+        $banner = new banner;
+        $banner->photo = $fileNameToStore;
+        $banner->save();
+
+        return redirect()->back()->with('status', 'Banner saved successfully!');
+    }
+
+    //UPDATE BANNER
+
+    public function updateBanner(Request $request, $id){
+        $request->validate([
+            'photo' => 'required|image|nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        // Find the banner by id
+        $banner = banner::find($id);
+        if (!$banner) {
+            return redirect()->back()->with('error', 'Banner not found.');
+        }
+
+        //file name with extension
+        $fileNameWithExt = $request->file('photo')->getClientOriginalName();
+        //just file name
+        $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+        //just extension
+        $extension = $request->file('photo')->getClientOriginalExtension();
+        //file name to store
+        $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+
+        //delete old banner file if exists
+        Storage::delete('public/banner/'.$banner->photo);
+
+        //upload file
+        $path = $request->file('photo')->storeAs('public/banner', $fileNameToStore);
+
+        //update banner in database
+        $banner->photo = $fileNameToStore;
+        $banner->update();
+
+        return redirect()->back()->with('status', 'Banner updated successfully!');
+    }
+
+    //SAVE PAYMENT SETTING
+    public function savePaymentSetting(Request $request){
+        $request->validate([
+            'paypal_email' => 'required',
+            'bank_details' => 'required'
+        ]);
+
+        // Save or update payment setting
+        $paymentsetting = new Paymentsetting;
+        $paymentsetting->paypal_email = $request->input('paypal_email');
+        $paymentsetting->bank_details = $request->input('bank_details');
+        $paymentsetting->save();
+
+        return redirect()->back()->with('status', 'Payment setting saved successfully!');
+    }
+
+    //UPDATE PAYMENT SETTING
+    public function updatePaymentSetting(Request $request, $id){
+        $request->validate([
+            'paypal_email' => 'required',
+            'bank_details' => 'required'
+        ]);
+
+        // Find the payment setting by id
+        $paymentsetting = Paymentsetting::find($id);
+        if (!$paymentsetting) {
+            return redirect()->back()->with('error', 'Payment setting not found.');
+        }
+
+        // Update payment setting
+        $paymentsetting->paypal_email = $request->input('paypal_email');
+        $paymentsetting->bank_details = $request->input('bank_details');
+        $paymentsetting->update();
+
+        return redirect()->back()->with('status', 'Payment setting updated successfully!');
+    }
+
 }

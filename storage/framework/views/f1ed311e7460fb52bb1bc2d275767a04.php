@@ -1,42 +1,42 @@
-@extends('admin_layout.master')
-@section('title', 'addsize')
 
-@section('content')
+<?php $__env->startSection('title', 'add color'); ?>
 
- <!-- start content -->
+<?php $__env->startSection('content'); ?>
+
+<!-- start content -->
          <div class="content-wrapper">
             <section class="content-header">
                <div class="content-header-left">
-                  <h1>Add Size</h1>
+                  <h1>Add Color</h1>
                </div>
                <div class="content-header-right">
-                  <a href="{{url('admin/size')}}" class="btn btn-primary btn-sm">View All</a>
+                  <a href="<?php echo e(url('admin/color')); ?>" class="btn btn-primary btn-sm">View All</a>
                </div>
             </section>
 
-             @if(session('status'))
-                  <section class="content" style="min-height:auto;margin-bottom: -30px;">
+            <?php if(session('status')): ?>
+               <section class="content" style="min-height:auto;margin-bottom: -30px;">
                      <div class="row">
-                        <div class="col-md-12">
-                           <div class="callout callout-success">
-                              <p>{{Session::get("status")}}</p>
-                           </div>
+                     <div class="col-md-12">
+                        <div class="callout callout-success">
+                           <p><?php echo e(Session::get("status")); ?></p>
                         </div>
                      </div>
-                  </section>
-               @endif
-               
+                     </div>
+               </section>
+            <?php endif; ?>
+
             <section class="content">
                <div class="row">
                   <div class="col-md-12">
-                     <form class="form-horizontal" action="{{url('admin/savesize')}}" method="post">
-                        @csrf
+                     <form class="form-horizontal" action="<?php echo e(url('admin/savecolor')); ?>" method="post">
+                        <?php echo csrf_field(); ?>
                         <div class="box box-info">
                            <div class="box-body">
                               <div class="form-group">
-                                 <label for="" class="col-sm-2 control-label">Size Name <span>*</span></label>
+                                 <label for="" class="col-sm-2 control-label">Color Name <span>*</span></label>
                                  <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="size" required placeholder="Enter la taille" >
+                                    <input type="text" class="form-control" name="color_name" required>
                                  </div>
                               </div>
                               <div class="form-group">
@@ -54,4 +54,5 @@
          </div>
 		 <!-- end content -->
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin_layout.master', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\basiclessons\resources\views/admin/addcolor.blade.php ENDPATH**/ ?>

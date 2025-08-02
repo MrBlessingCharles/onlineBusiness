@@ -9,7 +9,7 @@
             <h1>View Colors</h1>
          </div>
          <div class="content-header-right">
-            <a href="color-add.php" class="btn btn-primary btn-sm">Add New</a>
+            <a href="<?php echo e(url('admin/addcolor')); ?>" class="btn btn-primary btn-sm">Add New</a>
          </div>
       </section>
       <section class="content">
@@ -26,15 +26,29 @@
                            </tr>
                         </thead>
                         <tbody>
+                           <?php $__currentLoopData = $colors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $color): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
                            <tr>
-                              <td>1</td>
-                              <td>Red</td>
-                              <td>
+                              <td><?php echo e($increment++); ?></td>
+                              <td><?php echo e($color-> color_name); ?></td>
+                              <td style="display: flex;">
+                                    <a href="<?php echo e(url('admin/editcolor', [$color->id])); ?>" class="btn btn-primary btn-xs">Edit</a>
+                                    <!-- <a href="#" class="btn btn-danger btn-xs" data-href="size-delete.php?id=1" data-toggle="modal" data-target="#confirm-delete">Delete</a> -->
+                                    <form action="<?php echo e(url('admin/deletecolor', [$color->id])); ?>" method="post">
+                                       <?php echo csrf_field(); ?>
+                                       <?php echo method_field('DELETE'); ?>
+   
+                                       <button type="submit" class="btn btn-danger btn-xs" style="margin-left:5px;">Delete</button>
+                                    </form> 
+
+                                 </td>
+                              <!-- <td>
                                  <a href="color-edit.php?id=1" class="btn btn-primary btn-xs">Edit</a>
                                  <a href="#" class="btn btn-danger btn-xs" data-href="color-delete.php?id=1" data-toggle="modal" data-target="#confirm-delete">Delete</a>
-                              </td>
+                              </td> -->
                            </tr>
-                           <tr>
+                           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                           <!-- <tr>
                               <td>2</td>
                               <td>Black</td>
                               <td>
@@ -257,7 +271,7 @@
                                  <a href="color-edit.php?id=29" class="btn btn-primary btn-xs">Edit</a>
                                  <a href="#" class="btn btn-danger btn-xs" data-href="color-delete.php?id=29" data-toggle="modal" data-target="#confirm-delete">Delete</a>
                               </td>
-                           </tr>
+                           </tr> -->
                         </tbody>
                      </table>
                   </div>

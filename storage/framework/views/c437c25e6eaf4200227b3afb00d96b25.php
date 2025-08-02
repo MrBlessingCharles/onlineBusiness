@@ -12,16 +12,31 @@
             <a href="<?php echo e(url('/admin/size')); ?>" class="btn btn-primary btn-sm">View All</a>
         </div>
     </section>
+    
+    <?php if(session('status')): ?>
+        <section class="content" style="min-height:auto;margin-bottom: -30px;">
+            <div class="row">
+            <div class="col-md-12">
+                <div class="callout callout-success">
+                    <p><?php echo e(Session::get("status")); ?></p>
+                </div>
+            </div>
+            </div>
+        </section>
+    <?php endif; ?>
     <section class="content">
         <div class="row">
             <div class="col-md-12">
-                <form class="form-horizontal" action="" method="post">
+                <form class="form-horizontal" action="<?php echo e(url('admin/updatesize', [$size->id])); ?>" method="post">
+                    <?php echo csrf_field(); ?>
+                    <?php echo method_field('PUT'); ?>
+
                 <div class="box box-info">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="" class="col-sm-2 control-label">Size Name <span>*</span></label>
                             <div class="col-sm-4">
-                            <input type="text" class="form-control" name="size_name" value="XS">
+                            <input type="text" class="form-control" name="size" value="<?php echo e($size->size); ?>">
                             </div>
                         </div>
                         <div class="form-group">

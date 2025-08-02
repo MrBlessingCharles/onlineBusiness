@@ -1,7 +1,7 @@
-@extends('admin_layout.master')
-@section('title', 'color')
 
-@section('content')
+<?php $__env->startSection('title', 'color'); ?>
+
+<?php $__env->startSection('content'); ?>
  <!-- start content -->
       <div class="content-wrapper">
       <section class="content-header">
@@ -9,21 +9,21 @@
             <h1>View Colors</h1>
          </div>
          <div class="content-header-right">
-            <a href="{{url('admin/addcolor')}}" class="btn btn-primary btn-sm">Add New</a>
+            <a href="<?php echo e(url('admin/addcolor')); ?>" class="btn btn-primary btn-sm">Add New</a>
          </div>
       </section>
 
-       @if(session('status'))
+       <?php if(session('status')): ?>
             <section class="content" style="min-height:auto;margin-bottom: -30px;">
                   <div class="row">
                   <div class="col-md-12">
                      <div class="callout callout-success">
-                        <p>{{Session::get("status")}}</p>
+                        <p><?php echo e(Session::get("status")); ?></p>
                      </div>
                   </div>
                   </div>
             </section>
-         @endif
+         <?php endif; ?>
       <section class="content">
          <div class="row">
             <div class="col-md-12">
@@ -38,17 +38,17 @@
                            </tr>
                         </thead>
                         <tbody>
-                           @foreach($colors as $color)
+                           <?php $__currentLoopData = $colors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $color): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                            <tr>
-                              <td>{{$increment++}}</td>
-                              <td>{{$color-> color_name}}</td>
+                              <td><?php echo e($increment++); ?></td>
+                              <td><?php echo e($color-> color_name); ?></td>
                               <td style="display: flex;">
-                                    <a href="{{url('admin/editcolor', [$color->id])}}" class="btn btn-primary btn-xs">Edit</a>
+                                    <a href="<?php echo e(url('admin/editcolor', [$color->id])); ?>" class="btn btn-primary btn-xs">Edit</a>
                                     <!-- <a href="#" class="btn btn-danger btn-xs" data-href="size-delete.php?id=1" data-toggle="modal" data-target="#confirm-delete">Delete</a> -->
-                                    <form action="{{url('admin/deletecolor', [$color->id])}}" method="post">
-                                       @csrf
-                                       @method('DELETE')
+                                    <form action="<?php echo e(url('admin/deletecolor', [$color->id])); ?>" method="post">
+                                       <?php echo csrf_field(); ?>
+                                       <?php echo method_field('DELETE'); ?>
    
                                        <button type="submit" class="btn btn-danger btn-xs" style="margin-left:5px;">Delete</button>
                                     </form> 
@@ -59,7 +59,7 @@
                                  <a href="#" class="btn btn-danger btn-xs" data-href="color-delete.php?id=1" data-toggle="modal" data-target="#confirm-delete">Delete</a>
                               </td> -->
                            </tr>
-                           @endforeach
+                           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                            <!-- <tr>
                               <td>2</td>
                               <td>Black</td>
@@ -309,4 +309,5 @@
       </div>
 	  <!-- end content -->
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin_layout.master', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\basiclessons\resources\views/admin/color.blade.php ENDPATH**/ ?>

@@ -10,9 +10,22 @@
                <h1>View Sizes</h1>
             </div>
             <div class="content-header-right">
-               <a href="size-add.php" class="btn btn-primary btn-sm">Add New</a>
+               <a href="{{url('admin/addsize')}}" class="btn btn-primary btn-sm">Add New</a>
             </div>
          </section>
+           
+      @if(session('status'))
+         <section class="content" style="min-height:auto;margin-bottom: -30px;">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="callout callout-success">
+                     <p>{{Session::get("status")}}</p>
+                  </div>
+               </div>
+            </div>
+         </section>
+      @endif
+
          <section class="content">
             <div class="row">
                <div class="col-md-12">
@@ -27,15 +40,25 @@
                               </tr>
                            </thead>
                            <tbody>
+                              @foreach($sizes as $size)
+
                               <tr>
-                                 <td>1</td>
-                                 <td>XS</td>
-                                 <td>
-                                    <a href="size-edit.php?id=1" class="btn btn-primary btn-xs">Edit</a>
-                                    <a href="#" class="btn btn-danger btn-xs" data-href="size-delete.php?id=1" data-toggle="modal" data-target="#confirm-delete">Delete</a>
+                                 <td>{{$increment++}}</td>
+                                 <td>{{$size->size}}</td>
+                                 <td style="display: flex;">
+                                    <a href="{{url('admin/editsize', [$size->id])}}" class="btn btn-primary btn-xs">Edit</a>
+                                    <!-- <a href="#" class="btn btn-danger btn-xs" data-href="size-delete.php?id=1" data-toggle="modal" data-target="#confirm-delete">Delete</a> -->
+                                    <form action="{{url('admin/deletesize', [$size->id])}}" method="post">
+                                       @csrf
+                                       @method('DELETE')
+   
+                                       <button type="submit" class="btn btn-danger btn-xs" style="margin-left:5px;">Delete</button>
+                                    </form> 
+
                                  </td>
                               </tr>
-                              <tr>
+                              @endforeach
+                              <!-- <tr>
                                  <td>2</td>
                                  <td>S</td>
                                  <td>
@@ -402,7 +425,7 @@
                                     <a href="size-edit.php?id=47" class="btn btn-primary btn-xs">Edit</a>
                                     <a href="#" class="btn btn-danger btn-xs" data-href="size-delete.php?id=47" data-toggle="modal" data-target="#confirm-delete">Delete</a>
                                  </td>
-                              </tr>
+                              </tr> -->
                            </tbody>
                         </table>
                      </div>

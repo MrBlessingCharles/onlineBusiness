@@ -29,12 +29,11 @@ Route::get('/loginpassword', [App\Http\Controllers\ClientController::class, 'vie
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'viewadmindashboard']);
 Route::get('/admin/settings', [App\Http\Controllers\AdminController::class, 'viewadminsettings']);
 Route::get('/admin/size', [App\Http\Controllers\AdminController::class, 'viewadminsize']);
-Route::get('/admin/addsize', [App\Http\Controllers\AdminController::class, 'viewadminsize']);
-Route::get('/admin/editsize', [App\Http\Controllers\AdminController::class, 'addadminsize']);
+Route::get('/admin/addsize', [App\Http\Controllers\AdminController::class, 'addadminsize']);
 
 Route::get('/admin/color', [App\Http\Controllers\AdminController::class, 'viewcolor']);
-Route::get('/admin/addcolor', [App\Http\Controllers\AdminController::class, 'addadminsize']);
-Route::get('/admin/editcolor', [App\Http\Controllers\AdminController::class, 'editsize']);
+Route::get('/admin/addcolor', [App\Http\Controllers\AdminController::class, 'addadmincolor']);
+Route::get('/admin/editcolor', [App\Http\Controllers\AdminController::class, 'editcolor']);
 Route::get('/admin/country', [App\Http\Controllers\AdminController::class, 'viewcountry']);
 Route::get('/admin/addcountry', [App\Http\Controllers\AdminController::class, 'viewaddcountry']);
 Route::get('/admin/editcountry', [App\Http\Controllers\AdminController::class, 'vieweditcountry']);
@@ -103,4 +102,21 @@ Route::put('/admin/updatefeatproductsection/{id}', [App\Http\Controllers\Setting
 Route::post('/admin/savelatestproductsection', [App\Http\Controllers\SettingController::class, 'saveLatestProductSection']);
 Route::put('/admin/updatelatestproductsection/{id}', [App\Http\Controllers\SettingController::class, 'updateLatestProductSection']);
 Route::post('/admin/savepopularproductsection', [App\Http\Controllers\SettingController::class, 'savePopularProductSection']);
+Route::put('/admin/updatepopularproductsection/{id}', [App\Http\Controllers\SettingController::class, 'updatePopularProductSection']);
+Route::post('/admin/savenewsletter', [App\Http\Controllers\SettingController::class, 'saveNewsletter']);
+Route::put('/admin/updatenewsletter/{id}', [App\Http\Controllers\SettingController::class, 'updateNewsletter']);
+Route::post('/admin/savebanner', [App\Http\Controllers\SettingController::class, 'saveBanner']);
+Route::put('/admin/updatebanner/{id}', [App\Http\Controllers\SettingController::class, 'updateBanner']);
+Route::post('/admin/savepaymentsetting', [App\Http\Controllers\SettingController::class, 'savePaymentSetting']);
+Route::put('/admin/updatepaymentsetting/{id}', [App\Http\Controllers\SettingController::class, 'updatePaymentSetting']);
 
+//SHOP CONTROLLER ROUTES
+Route::post('/admin/savesize', [App\Http\Controllers\ShopController::class, 'savesize']);
+Route::get('/admin/editsize/{id}', [App\Http\Controllers\ShopController::class, 'vieweditsize']);
+Route::put('/admin/updatesize/{id}', [App\Http\Controllers\ShopController::class, 'updatesize']);
+Route::delete('/admin/deletesize/{id}', [App\Http\Controllers\ShopController::class, 'deletesize']);
+
+Route::post('/admin/savecolor', [App\Http\Controllers\ShopController::class, 'savecolor']);
+Route::get('/admin/editcolor/{id}', [App\Http\Controllers\ShopController::class, 'vieweditcolor']);
+Route::put('/admin/updatecolor/{id}', [App\Http\Controllers\ShopController::class, 'updatecolor']);
+Route::delete('/admin/deletecolor/{id}', [App\Http\Controllers\ShopController::class, 'deletecolor']);

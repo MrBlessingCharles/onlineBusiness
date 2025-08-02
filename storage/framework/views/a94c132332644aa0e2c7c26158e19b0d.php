@@ -502,7 +502,7 @@
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label">Popular Product SubTitle<span>*</span></label>
                                           <div class="col-sm-8">
-                                             <input type="text" class="form-control" name="popular_product_subtitle" value="<?php echo e($popularproductsection ? $popularproductsection->latest_product_subtitle : ''); ?>" required>
+                                             <input type="text" class="form-control" name="popular_product_subtitle" value="<?php echo e($popularproductsection ? $popularproductsection->popular_product_subtitle : ''); ?>" required>
                                           </div>
                                        </div>
                                        <div class="form-group">
@@ -515,19 +515,23 @@
                                  </div>
                               </form>
                               <h3>Newsletter Section</h3>
-                              <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                              <form class="form-horizontal" action="<?php echo e($newsletter ? url('admin/updatenewsletter', [$newsletter ->id])  : url('admin/savenewsletter',[])); ?>" method="post" enctype="multipart/form-data">
+                                 <?php echo csrf_field(); ?>
+                                 <?php if($newsletter): ?>
+                                    <?php echo method_field('PUT'); ?>
+                                 <?php endif; ?>
                                  <div class="box box-info">
                                     <div class="box-body">
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label">Newsletter Text</label>
                                           <div class="col-sm-8">
-                                             <textarea name="newsletter_text" class="form-control" cols="30" rows="10" style="height: 120px;">Sign-up to our newsletter for latest promotions and discounts.</textarea>
+                                             <textarea name="newsletter_text" class="form-control" cols="30" rows="10" style="height: 120px;"><?php echo e($newsletter ? $newsletter->newsletter_text : ''); ?></textarea>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label"></label>
                                           <div class="col-sm-6">
-                                             <button type="submit" class="btn btn-success pull-left" name="form6_3">Update</button>
+                                             <button type="submit" class="btn btn-success pull-left" name="form6_3"><?php echo e($newsletter  ? 'Update' : 'Save '); ?></button>
                                           </div>
                                        </div>
                                     </div>
@@ -537,17 +541,30 @@
                            <div class="tab-pane" id="tab_7">
                               <table class="table table-bordered">
                                  <tr>
-                                    <form action="" method="post" enctype="multipart/form-data">
+                                    <form action="<?php echo e($banner ? url('admin/updatebanner', [$banner ->id])  : url('admin/savebanner',[])); ?>" method="post" enctype="multipart/form-data">
+                                       <?php echo csrf_field(); ?>
+                                       <?php if($banner): ?>
+                                          <?php echo method_field('PUT'); ?>
+                                       <?php endif; ?>
                                        <td style="width:50%">
-                                          <h4>Existing Login Page Banner</h4>
-                                          <p>
-                                             <img src="<?php echo e(asset('backend/uploads/banner_login.jpg')); ?>" alt="" style="width: 100%;height:auto;"> 
-                                          </p>
-                                       </td>
+                                          <h4>Existing  Banner</h4>
+                                       
+                                                <?php if($banner): ?>
+                                                   <!-- Affichage normal du logo -->
+                                                    <p>
+                                                      <img src="<?php echo e(asset('storage/public/banner/'.$banner->photo)); ?>" alt="<?php echo e($banner->photo); ?>"  style="width: 100%;height:auto;">
+                                                   </p>
+                                                   <?php else: ?>
+                                                   <p>
+                                                      <img src="<?php echo e(asset('storage/defaultimage/noimage.jpg')); ?>" alt="noimageforlogo"  style="width: 100%;height:auto;">
+                                                   </p>
+                                                   <?php endif; ?>
+                                             
+                                       
                                        <td style="width:50%">
                                           <h4>Change Login Page Banner</h4>
                                           Select Photo<input type="file" name="photo">
-                                          <input type="submit" class="btn btn-primary btn-xs" value="Change" style="margin-top:10px;" name="form7_1">
+                                          <input type="submit" class="btn btn-primary btn-xs" value="<?php echo e($banner ? 'Change' : 'SAVE'); ?>" style="margin-top:10px;" name="form7_1">
                                        </td>
                                     </form>
                                  </tr>
@@ -660,28 +677,33 @@
                            </div>
                            <!-- PAYMENT METHODS TAB -->
                            <div class="tab-pane" id="tab_9">
-                              <form class="form-horizontal" action="" method="post">
+                              <form class="form-horizontal" action="<?php echo e($paymentsetting ? url('admin/updatepaymentsetting', [$paymentsetting ->id])  : url('admin/savepaymentsetting',[])); ?>" method="post">
+                                 <?php echo csrf_field(); ?>
+                                 <?php if($paymentsetting): ?>
+                                    <?php echo method_field('PUT'); ?>
+                                 <?php endif; ?>
                                  <div class="box box-info">
                                     <div class="box-body">
                                        <div class="form-group">
                                           <label for="" class="col-sm-2 control-label">PayPal - Business Email </label>
                                           <div class="col-sm-5">
-                                             <input type="text" name="paypal_email" class="form-control" value="admin@ecom.com">
+                                             <input type="email" name="paypal_email" class="form-control" value="<?php echo e($paymentsetting ?  $paymentsetting->paypal_email : ''); ?>" required>
                                           </div>
                                        </div>
+                                       
                                        <div class="form-group">
                                           <label for="" class="col-sm-2 control-label">Bank Information </label>
                                           <div class="col-sm-5">
-                                             <textarea name="bank_detail" class="form-control" cols="30" rows="10">Bank Name: WestView Bank
-                                             Account Number: CA100270589600
-                                             Branch Name: CA Branch
-                                             Country: USA</textarea>
+                                             <textarea name="bank_details" class="form-control" cols="30" rows="10" required>
+                                                <?php echo e($paymentsetting ?  $paymentsetting->bank_details : ''); ?>
+
+                                             </textarea>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-2 control-label"></label>
-                                          <div class="col-sm-6">
-                                             <button type="submit" class="btn btn-success pull-left" name="form9">Update</button>
+                                          <div class="col-sm-10 ">
+                                             <button type="submit" class="btn btn-success pull-left" name="form9"><?php echo e($paymentsetting ? 'update' : 'SAVE'); ?></button>
                                           </div>
                                        </div>
                                     </div>

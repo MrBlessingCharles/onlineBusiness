@@ -19,7 +19,7 @@
                      <i class="fa fa-angle-left pull-right"></i>
                      </span>
                      </a>
-                     <ul class="treeview-menu {{request()->is('admin/size') || request()->is('admin/color')||request()->is('admin/country')
+                     <ul class="treeview {{request()->is('admin/size') || request()->is('admin/color')||request()->is('admin/country')
                         || request()->is('admin/shippingcoast') || request()->is('admin/toplevelcategory')
                         || request()->is('admin/middlelevelcategory') || request()->is('admin/endlevelcategory')
                       ? 'active' : ''}}">

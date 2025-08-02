@@ -10,9 +10,22 @@
                <h1>View Sizes</h1>
             </div>
             <div class="content-header-right">
-               <a href="size-add.php" class="btn btn-primary btn-sm">Add New</a>
+               <a href="<?php echo e(url('admin/addsize')); ?>" class="btn btn-primary btn-sm">Add New</a>
             </div>
          </section>
+           
+      <?php if(session('status')): ?>
+         <section class="content" style="min-height:auto;margin-bottom: -30px;">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="callout callout-success">
+                     <p><?php echo e(Session::get("status")); ?></p>
+                  </div>
+               </div>
+            </div>
+         </section>
+      <?php endif; ?>
+
          <section class="content">
             <div class="row">
                <div class="col-md-12">
@@ -27,15 +40,25 @@
                               </tr>
                            </thead>
                            <tbody>
+                              <?php $__currentLoopData = $sizes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $size): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
                               <tr>
-                                 <td>1</td>
-                                 <td>XS</td>
-                                 <td>
-                                    <a href="size-edit.php?id=1" class="btn btn-primary btn-xs">Edit</a>
-                                    <a href="#" class="btn btn-danger btn-xs" data-href="size-delete.php?id=1" data-toggle="modal" data-target="#confirm-delete">Delete</a>
+                                 <td><?php echo e($increment++); ?></td>
+                                 <td><?php echo e($size->size); ?></td>
+                                 <td style="display: flex;">
+                                    <a href="<?php echo e(url('admin/editsize', [$size->id])); ?>" class="btn btn-primary btn-xs">Edit</a>
+                                    <!-- <a href="#" class="btn btn-danger btn-xs" data-href="size-delete.php?id=1" data-toggle="modal" data-target="#confirm-delete">Delete</a> -->
+                                    <form action="<?php echo e(url('admin/deletesize', [$size->id])); ?>" method="post">
+                                       <?php echo csrf_field(); ?>
+                                       <?php echo method_field('DELETE'); ?>
+   
+                                       <button type="submit" class="btn btn-danger btn-xs" style="margin-left:5px;">Delete</button>
+                                    </form> 
+
                                  </td>
                               </tr>
-                              <tr>
+                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                              <!-- <tr>
                                  <td>2</td>
                                  <td>S</td>
                                  <td>
@@ -402,7 +425,7 @@
                                     <a href="size-edit.php?id=47" class="btn btn-primary btn-xs">Edit</a>
                                     <a href="#" class="btn btn-danger btn-xs" data-href="size-delete.php?id=47" data-toggle="modal" data-target="#confirm-delete">Delete</a>
                                  </td>
-                              </tr>
+                              </tr> -->
                            </tbody>
                         </table>
                      </div>
