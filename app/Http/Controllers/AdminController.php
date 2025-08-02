@@ -2,9 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\favicon;
+use App\Models\Message;
 use App\Models\logoimage;
+use App\Models\information;
+use App\Models\Metasection;
+use App\Models\onoffsection;
 use Illuminate\Http\Request;
+use App\Models\Productsetting;
+use App\Models\featproductsection;
 use App\Http\Controllers\Controller;
+use App\Models\latestproductsection;
+use App\Models\popularproductsection;
 
 class AdminController extends Controller
 {
@@ -19,8 +28,19 @@ class AdminController extends Controller
     {   
 
         $logoImages = logoimage::first();
+        $favicons = favicon::first();
+        $information = information::first();
+        $message= Message::first();
+        $productsetting = Productsetting::first(); 
+        $onoffsection = onoffsection::first(); 
+        $metasection = Metasection::first(); 
+        $featuredproductsection = featproductsection::first();
+        $latestproductsection = latestproductsection::first();
+        $popularproductsection = popularproductsection::first();
         // Logic to display the admin settings page
-        return view('admin.settings', compact('logoImages'));
+        return view('admin.settings', compact('logoImages', 'favicons', 
+        'information', 'message', 'productsetting','onoffsection', 'metasection', 
+        'featuredproductsection', 'latestproductsection', 'popularproductsection'));
     }
 
     public function viewadminsize()

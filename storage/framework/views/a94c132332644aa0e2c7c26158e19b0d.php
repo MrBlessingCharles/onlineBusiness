@@ -1,7 +1,7 @@
-@extends('admin_layout.master')
-@section('title', 'Settings')
 
-@section('content')
+<?php $__env->startSection('title', 'Settings'); ?>
+
+<?php $__env->startSection('content'); ?>
 
 <!-- start content -->
          <div class="content-wrapper">
@@ -10,17 +10,17 @@
                   <h1>Website Settings</h1>
                </div>
             </section>
-               @if(session('status'))
+               <?php if(session('status')): ?>
                   <section class="content" style="min-height:auto;margin-bottom: -30px;">
                      <div class="row">
                         <div class="col-md-12">
                            <div class="callout callout-success">
-                              <p>{{Session::get("status")}}</p>
+                              <p><?php echo e(Session::get("status")); ?></p>
                            </div>
                         </div>
                      </div>
                   </section>
-               @endif
+               <?php endif; ?>
             <section class="content">
                <div class="row">
                   <div class="col-md-12">
@@ -39,22 +39,22 @@
                         </ul>
                         <div class="tab-content">
                            <div class="tab-pane active" id="tab_1">
-                              <form class="form-horizontal" action="{{ $logoImages ? url('admin/updatelogo', [$logoImages->id])  : url('admin/savelogo') }}" method="post" enctype="multipart/form-data">
-                                 @csrf
-                                 @if($logoImages)
-                                    @method('PUT')   
-                                 @endif
+                              <form class="form-horizontal" action="<?php echo e($logoImages ? url('admin/updatelogo', [$logoImages->id])  : url('admin/savelogo')); ?>" method="post" enctype="multipart/form-data">
+                                 <?php echo csrf_field(); ?>
+                                 <?php if($logoImages): ?>
+                                    <?php echo method_field('PUT'); ?>   
+                                 <?php endif; ?>
                               <div class="box box-info">
                                     <div class="box-body">
                                        <div class="form-group">
                                           <label for="" class="col-sm-2 control-label">Existing Photo</label>
                                           <div class="col-sm-6" style="padding-top:6px;">
-                                             @if($logoImages )
+                                             <?php if($logoImages ): ?>
                                                 <!-- Affichage normal du logo -->
-                                                <img src="{{ asset('storage/public/logoimage/'.$logoImages->logo_name) }}" alt="{{$logoImages->logo_name}}" class="existing-photo" style="height:80px;">
-                                             @else
-                                                <img src="{{ asset('storage/defaultimage/noimage.jpg') }}" alt="noimageforlogo" class="existing-photo" style="height:80px;">
-                                             @endif
+                                                <img src="<?php echo e(asset('storage/public/logoimage/'.$logoImages->logo_name)); ?>" alt="<?php echo e($logoImages->logo_name); ?>" class="existing-photo" style="height:80px;">
+                                             <?php else: ?>
+                                                <img src="<?php echo e(asset('storage/defaultimage/noimage.jpg')); ?>" alt="noimageforlogo" class="existing-photo" style="height:80px;">
+                                             <?php endif; ?>
                                           </div>
                                        </div>
                                        <div class="form-group">
@@ -66,7 +66,7 @@
                                        <div class="form-group">
                                           <label for="" class="col-sm-2 control-label"></label>
                                           <div class="col-sm-6">
-                                             <button type="submit" class="btn btn-success pull-left" name="form1">{{ $logoImages ? 'Update Logo' : 'Save Logo'}}</button>
+                                             <button type="submit" class="btn btn-success pull-left" name="form1"><?php echo e($logoImages ? 'Update Logo' : 'Save Logo'); ?></button>
                                           </div>
                                        </div>
                                     </div>
@@ -77,23 +77,23 @@
                            <!-- Favicon Tab -->
 
                            <div class="tab-pane " id="tab_2">
-                              <form class="form-horizontal" action="{{ $favicons ? url('admin/updatefavicon', [$favicons->id])  : url('admin/savefavicon',[]) }}" method="post" enctype="multipart/form-data">
-                                 @csrf
-                                 @if($favicons)
-                                    @method('PUT')   
-                                 @endif
+                              <form class="form-horizontal" action="<?php echo e($favicons ? url('admin/updatefavicon', [$favicons->id])  : url('admin/savefavicon',[])); ?>" method="post" enctype="multipart/form-data">
+                                 <?php echo csrf_field(); ?>
+                                 <?php if($favicons): ?>
+                                    <?php echo method_field('PUT'); ?>   
+                                 <?php endif; ?>
                               <div class="box box-info">
                                     <div class="box-body">
                                        <div class="form-group">
                                           <label for="" class="col-sm-2 control-label">Existing Photo</label>
                                           <div class="col-sm-6" style="padding-top:6px;">
 
-                                             @if($favicons )
+                                             <?php if($favicons ): ?>
                                                 <!-- Affichage normal du logo -->
-                                                <img src="{{ asset('storage/public/logoimage/'.$favicons->photo_favicon) }}" alt="{{$favicons->photo_favicon}}" class="existing-photo" style="height:80px;">
-                                             @else
-                                                <img src="{{ asset('storage/defaultimage/noimage.jpg') }}" alt="noimagefavicon" class="existing-photo" style="height:80px;">
-                                             @endif
+                                                <img src="<?php echo e(asset('storage/public/logoimage/'.$favicons->photo_favicon)); ?>" alt="<?php echo e($favicons->photo_favicon); ?>" class="existing-photo" style="height:80px;">
+                                             <?php else: ?>
+                                                <img src="<?php echo e(asset('storage/defaultimage/noimage.jpg')); ?>" alt="noimagefavicon" class="existing-photo" style="height:80px;">
+                                             <?php endif; ?>
                                           </div>
                                        </div>
                                        <div class="form-group">
@@ -105,7 +105,7 @@
                                        <div class="form-group">
                                           <label for="" class="col-sm-2 control-label"></label>
                                           <div class="col-sm-6">
-                                             <button type="submit" class="btn btn-success pull-left" name="form1">{{ $favicons ? 'Update Favicon' : 'Save Favicon'}}</button>
+                                             <button type="submit" class="btn btn-success pull-left" name="form1"><?php echo e($favicons ? 'Update Favicon' : 'Save Favicon'); ?></button>
                                           </div>
                                        </div>
                                     </div>
@@ -115,31 +115,31 @@
 
 
                            <div class="tab-pane" id="tab_3">
-                              <form class="form-horizontal" action="{{ $information ? url('admin/updateinformation', [$information->id])  : url('admin/saveinformation',[]) }}" method="post">
-                                  @csrf
-                                 @if($information)
-                                    @method('PUT')   
-                                 @endif
+                              <form class="form-horizontal" action="<?php echo e($information ? url('admin/updateinformation', [$information->id])  : url('admin/saveinformation',[])); ?>" method="post">
+                                  <?php echo csrf_field(); ?>
+                                 <?php if($information): ?>
+                                    <?php echo method_field('PUT'); ?>   
+                                 <?php endif; ?>
                                  <div class="box box-info">
                                     <div class="box-body">
                                        <div class="form-group">
                                           <label for="" class="col-sm-2 control-label">Newsletter Section </label>
                                           <div class="col-sm-3">
                                              <select name="newsletter_on" class="form-control" style="width:auto;" required>
-                                                 @if($information )
+                                                 <?php if($information ): ?>
 
-                                                      @if($information->newsletter_on == "1")
+                                                      <?php if($information->newsletter_on == "1"): ?>
                                                          <option value="1" selected>On</option>
                                                          <option value="0">Off</option>
-                                                      @else
+                                                      <?php else: ?>
                                                          <option value="1">On</option>
                                                          <option value="0" selected>Off</option>
-                                                      @endif
+                                                      <?php endif; ?>
 
-                                                 @else
+                                                 <?php else: ?>
                                                    <option value="1" selected>On</option>
                                                    <option value="0">Off</option>
-                                                 @endif
+                                                 <?php endif; ?>
 
                                                
                                              </select>
@@ -148,39 +148,40 @@
                                        <div class="form-group">
                                           <label for="" class="col-sm-2 control-label">Footer - Copyright </label>
                                           <div class="col-sm-9">
-                                             <input class="form-control" type="text" name="footer_copyright" value="{{ $information ? $information->footer_copyright : '' }}" required>
+                                             <input class="form-control" type="text" name="footer_copyright" value="<?php echo e($information ? $information->footer_copyright : ''); ?>" required>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-2 control-label">Contact Address </label>
                                           <div class="col-sm-6">
-                                             <textarea class="form-control" name="contact_adress" style="height:140px;" required> {{$information ? $information->contact_adress : ''  }} </textarea>
+                                             <textarea class="form-control" name="contact_adress" style="height:140px;" required> <?php echo e($information ? $information->contact_adress : ''); ?> </textarea>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-2 control-label">Contact Email </label>
                                           <div class="col-sm-6">
-                                             <input type="email" class="form-control" name="contact_email" value="{{$information ? $information->contact_email : ''  }}" required>
+                                             <input type="email" class="form-control" name="contact_email" value="<?php echo e($information ? $information->contact_email : ''); ?>" required>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-2 control-label">Contact Phone Number </label>
                                           <div class="col-sm-6">
-                                             <input type="number" class="form-control" name="contact_phone" value="{{$information ? $information->contact_phone : ''  }}" required>
+                                             <input type="number" class="form-control" name="contact_phone" value="<?php echo e($information ? $information->contact_phone : ''); ?>" required>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-2 control-label">Contact Map iFrame </label>
                                           <div class="col-sm-9">
                                              <textarea class="form-control" name="contact_map_iframe" style="height:200px;" required>
-                                             {{$information ? $information->contact_map_iframe : ''  }}
+                                             <?php echo e($information ? $information->contact_map_iframe : ''); ?>
+
                                              </textarea>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-2 control-label"></label>
                                           <div class="col-sm-6">
-                                             <button type="submit" class="btn btn-success pull-left" name="form3">{{ $information ? 'Update information' : 'Save information'}}</button>
+                                             <button type="submit" class="btn btn-success pull-left" name="form3"><?php echo e($information ? 'Update information' : 'Save information'); ?></button>
                                           </div>
                                        </div>
                                     </div>
@@ -188,41 +189,41 @@
                               </form>
                            </div>
                            <div class="tab-pane" id="tab_4">
-                              <form class="form-horizontal" action="{{ $message ? url('admin/updatemessage', [$message->id])  : url('admin/savemessage',[]) }}" method="post">
-                                  @csrf
-                                 @if($message)
-                                    @method('PUT')   
-                                 @endif
+                              <form class="form-horizontal" action="<?php echo e($message ? url('admin/updatemessage', [$message->id])  : url('admin/savemessage',[])); ?>" method="post">
+                                  <?php echo csrf_field(); ?>
+                                 <?php if($message): ?>
+                                    <?php echo method_field('PUT'); ?>   
+                                 <?php endif; ?>
                                  <div class="box box-info">
                                     <div class="box-body">
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label">Contact Email Address</label>
                                           <div class="col-sm-4">
-                                             <input type="text" class="form-control" name="receive_email" value=" {{$message ? $message->receive_email : ''  }}" required>
+                                             <input type="text" class="form-control" name="receive_email" value=" <?php echo e($message ? $message->receive_email : ''); ?>" required>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label">Contact Email Subject</label>
                                           <div class="col-sm-8">
-                                             <input type="text" class="form-control" name="receive_email_subject" value="{{$message ? $message->receive_email_subject : ''  }}" required>
+                                             <input type="text" class="form-control" name="receive_email_subject" value="<?php echo e($message ? $message->receive_email_subject : ''); ?>" required>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label">Contact Email Thank you message</label>
                                           <div class="col-sm-8">
-                                             <textarea class="form-control" name="receive_email_thank_you_message" required>{{$message ? $message->receive_email_thank_you_message : ''  }}</textarea>
+                                             <textarea class="form-control" name="receive_email_thank_you_message" required><?php echo e($message ? $message->receive_email_thank_you_message : ''); ?></textarea>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label">Forget password Message</label>
                                           <div class="col-sm-8">
-                                             <textarea class="form-control" name="forget_password_message" required>{{$message ? $message->forget_password_message : '' }}</textarea>
+                                             <textarea class="form-control" name="forget_password_message" required><?php echo e($message ? $message->forget_password_message : ''); ?></textarea>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label"></label>
                                           <div class="col-sm-5">
-                                             <button type="submit" class="btn btn-success pull-left" name="form4">{{ $message ? 'Update message' : 'Save message'}}</button>
+                                             <button type="submit" class="btn btn-success pull-left" name="form4"><?php echo e($message ? 'Update message' : 'Save message'); ?></button>
                                           </div>
                                        </div>
                                     </div>
@@ -230,35 +231,35 @@
                               </form>
                            </div>
                            <div class="tab-pane" id="tab_5">
-                              <form class="form-horizontal" action="{{ $productsetting ? url('admin/updateproductsetting', [$productsetting->id])  : url('admin/saveproductsetting',[]) }}" method="post">
-                                 @csrf
-                                 @if($productsetting)
-                                    @method('PUT')   
-                                 @endif
+                              <form class="form-horizontal" action="<?php echo e($productsetting ? url('admin/updateproductsetting', [$productsetting->id])  : url('admin/saveproductsetting',[])); ?>" method="post">
+                                 <?php echo csrf_field(); ?>
+                                 <?php if($productsetting): ?>
+                                    <?php echo method_field('PUT'); ?>   
+                                 <?php endif; ?>
                                  <div class="box box-info">
                                     <div class="box-body">
                                        <div class="form-group">
                                           <label for="" class="col-sm-4 control-label">Home Page (How many featured product?)<span>*</span></label>
                                           <div class="col-sm-2">
-                                             <input type="number" class="form-control" name="total_featured_product_home" value="{{ $productsetting ? $productsetting->total_featured_product_home : '' }}" required>
+                                             <input type="number" class="form-control" name="total_featured_product_home" value="<?php echo e($productsetting ? $productsetting->total_featured_product_home : ''); ?>" required>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-4 control-label">Home Page (How many latest product?)<span>*</span></label>
                                           <div class="col-sm-2">
-                                             <input type="number" class="form-control" name="total_latest_product_home" value="{{ $productsetting ? $productsetting->total_latest_product_home : '' }}" required>
+                                             <input type="number" class="form-control" name="total_latest_product_home" value="<?php echo e($productsetting ? $productsetting->total_latest_product_home : ''); ?>" required>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-4 control-label">Home Page (How many popular product?)<span>*</span></label>
                                           <div class="col-sm-2">
-                                             <input type="number" class="form-control" name="total_popular_product_home" value="{{ $productsetting ? $productsetting->total_popular_product_home : '' }}" required>
+                                             <input type="number" class="form-control" name="total_popular_product_home" value="<?php echo e($productsetting ? $productsetting->total_popular_product_home : ''); ?>" required>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-4 control-label"></label>
                                           <div class="col-sm-6">
-                                             <button type="submit" class="btn btn-success pull-left" name="form5">{{ $productsetting? 'Update productsetting' : 'Save productsetting'}}</button>
+                                             <button type="submit" class="btn btn-success pull-left" name="form5"><?php echo e($productsetting? 'Update productsetting' : 'Save productsetting'); ?></button>
                                           </div>
                                        </div>
                                     </div>
@@ -267,31 +268,31 @@
                            </div>
                            <div class="tab-pane" id="tab_6">
                               <h3>Sections On and Off</h3>
-                              <form class="form-horizontal" action="{{ $onoffsection ? url('admin/updateonoffsection', [$onoffsection->id])  : url('admin/saveonoffsection',[]) }}" method="post">
-                                 @csrf
-                                 @if($onoffsection)
-                                    @method('PUT')   
-                                 @endif
+                              <form class="form-horizontal" action="<?php echo e($onoffsection ? url('admin/updateonoffsection', [$onoffsection->id])  : url('admin/saveonoffsection',[])); ?>" method="post">
+                                 <?php echo csrf_field(); ?>
+                                 <?php if($onoffsection): ?>
+                                    <?php echo method_field('PUT'); ?>   
+                                 <?php endif; ?>
                                  <div class="box box-info">
                                     <div class="box-body"> 
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label">Service Section </label>
                                           <div class="col-sm-4">
                                              <select name="home_service_on_off" class="form-control" style="width:auto;">
-                                                 @if($onoffsection)
+                                                 <?php if($onoffsection): ?>
 
-                                                      @if($onoffsection->home_service_on_off== "1")
+                                                      <?php if($onoffsection->home_service_on_off== "1"): ?>
                                                          <option value="1" selected>On</option>
                                                          <option value="0">Off</option>
-                                                      @else
+                                                      <?php else: ?>
                                                          <option value="1">On</option>
                                                          <option value="0" selected>Off</option>
-                                                      @endif
+                                                      <?php endif; ?>
 
-                                                 @else
+                                                 <?php else: ?>
                                                    <option value="1" selected>On</option>
                                                    <option value="0">Off</option>
-                                                 @endif
+                                                 <?php endif; ?>
                                                
                                              </select>
                                           </div>
@@ -300,20 +301,20 @@
                                           <label for="" class="col-sm-3 control-label">Welcome Section </label>
                                           <div class="col-sm-4">
                                              <select name="home_welcome_on_off" class="form-control" style="width:auto;">
-                                                @if($onoffsection)
+                                                <?php if($onoffsection): ?>
 
-                                                      @if($onoffsection->home_welcome_on_off== "1")
+                                                      <?php if($onoffsection->home_welcome_on_off== "1"): ?>
                                                          <option value="1" selected>On</option>
                                                          <option value="0">Off</option>
-                                                      @else
+                                                      <?php else: ?>
                                                          <option value="1">On</option>
                                                          <option value="0" selected>Off</option>
-                                                      @endif
+                                                      <?php endif; ?>
 
-                                                 @else
+                                                 <?php else: ?>
                                                    <option value="1" selected>On</option>
                                                    <option value="0">Off</option>
-                                                 @endif
+                                                 <?php endif; ?>
                                              </select>
                                           </div>
                                        </div>
@@ -321,20 +322,20 @@
                                           <label for="" class="col-sm-3 control-label">Featured Product Section </label>
                                           <div class="col-sm-4">
                                              <select name="home_featured_product_on_off" class="form-control" style="width:auto;">
-                                                @if($onoffsection)
+                                                <?php if($onoffsection): ?>
 
-                                                      @if($onoffsection->home_featured_product_on_off== "1")
+                                                      <?php if($onoffsection->home_featured_product_on_off== "1"): ?>
                                                          <option value="1" selected>On</option>
                                                          <option value="0">Off</option>
-                                                      @else
+                                                      <?php else: ?>
                                                          <option value="1">On</option>
                                                          <option value="0" selected>Off</option>
-                                                      @endif
+                                                      <?php endif; ?>
 
-                                                 @else
+                                                 <?php else: ?>
                                                    <option value="1" selected>On</option>
                                                    <option value="0">Off</option>
-                                                 @endif
+                                                 <?php endif; ?>
                                              </select>
                                           </div>
                                        </div>
@@ -342,20 +343,20 @@
                                           <label for="" class="col-sm-3 control-label">Latest Product Section </label>
                                           <div class="col-sm-4">
                                              <select name="home_latest_product_on_off" class="form-control" style="width:auto;">
-                                                @if($onoffsection)
+                                                <?php if($onoffsection): ?>
 
-                                                      @if($onoffsection->home_latest_product_on_off== "1")
+                                                      <?php if($onoffsection->home_latest_product_on_off== "1"): ?>
                                                          <option value="1" selected>On</option>
                                                          <option value="0">Off</option>
-                                                      @else
+                                                      <?php else: ?>
                                                          <option value="1">On</option>
                                                          <option value="0" selected>Off</option>
-                                                      @endif
+                                                      <?php endif; ?>
 
-                                                 @else
+                                                 <?php else: ?>
                                                    <option value="1" selected>On</option>
                                                    <option value="0">Off</option>
-                                                 @endif
+                                                 <?php endif; ?>
                                              </select>
                                           </div>
                                        </div>
@@ -363,63 +364,63 @@
                                           <label for="" class="col-sm-3 control-label">Popular Product Section </label>
                                           <div class="col-sm-4">
                                              <select name="home_popular_product_on_off" class="form-control" style="width:auto;">
-                                                @if($onoffsection)
+                                                <?php if($onoffsection): ?>
 
-                                                      @if($onoffsection->home_popular_product_on_off== "1")
+                                                      <?php if($onoffsection->home_popular_product_on_off== "1"): ?>
                                                          <option value="1" selected>On</option>
                                                          <option value="0">Off</option>
-                                                      @else
+                                                      <?php else: ?>
                                                          <option value="1">On</option>
                                                          <option value="0" selected>Off</option>
-                                                      @endif
+                                                      <?php endif; ?>
 
-                                                 @else
+                                                 <?php else: ?>
                                                    <option value="1" selected>On</option>
                                                    <option value="0">Off</option>
-                                                 @endif
+                                                 <?php endif; ?>
                                              </select>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label"></label>
                                           <div class="col-sm-6">
-                                             <button type="submit" class="btn btn-success pull-left" name="form6_0">{{ $onoffsection? 'Update' : 'Save '}}</button>
+                                             <button type="submit" class="btn btn-success pull-left" name="form6_0"><?php echo e($onoffsection? 'Update' : 'Save '); ?></button>
                                           </div>
                                        </div>
                                     </div>
                                  </div>
                               </form>
                               <h3>Meta Section</h3>
-                              <form class="form-horizontal" action="{{ $metasection ? url('admin/updatemetasection', [$metasection ->id])  : url('admin/savemetasection ',[]) }}" method="post">
-                                 @csrf
-                                 @if($metasection)
-                                    @method('PUT')
-                                 @endif
+                              <form class="form-horizontal" action="<?php echo e($metasection ? url('admin/updatemetasection', [$metasection ->id])  : url('admin/savemetasection ',[])); ?>" method="post">
+                                 <?php echo csrf_field(); ?>
+                                 <?php if($metasection): ?>
+                                    <?php echo method_field('PUT'); ?>
+                                 <?php endif; ?>
                               
                                  <div class="box box-info">
                                     <div class="box-body">
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label">Meta Title </label>
                                           <div class="col-sm-8">
-                                             <input type="text" name="meta_title_home" class="form-control" value="{{ $metasection ? $metasection->meta_title_home : '' }}" required>
+                                             <input type="text" name="meta_title_home" class="form-control" value="<?php echo e($metasection ? $metasection->meta_title_home : ''); ?>" required>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label">Meta Keyword </label>
                                           <div class="col-sm-8">
-                                             <textarea class="form-control" name="meta_keyword_home" style="height:100px;" required>{{ $metasection ? $metasection->meta_keyword_home : '' }}</textarea>
+                                             <textarea class="form-control" name="meta_keyword_home" style="height:100px;" required><?php echo e($metasection ? $metasection->meta_keyword_home : ''); ?></textarea>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label">Meta Description </label>
                                           <div class="col-sm-8">
-                                             <textarea class="form-control" name="meta_description_home" style="height:200px;" required>{{ $metasection ? $metasection->meta_description_home : '' }}</textarea>
+                                             <textarea class="form-control" name="meta_description_home" style="height:200px;" required><?php echo e($metasection ? $metasection->meta_description_home : ''); ?></textarea>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label"></label>
                                           <div class="col-sm-6">
-                                             <button type="submit" class="btn btn-success pull-left" name="form6">{{ $metasection  ? 'Update' : 'Save '}}</button>
+                                             <button type="submit" class="btn btn-success pull-left" name="form6"><?php echo e($metasection  ? 'Update' : 'Save '); ?></button>
                                           </div>
                                        </div>
                                     </div>
@@ -427,87 +428,87 @@
                               </form>
                               
                               <h3>Featured Product Section</h3>
-                              <form class="form-horizontal" action="{{ $featuredproductsection ? url('admin/updatefeatproductsection', [$featuredproductsection ->id])  : url('admin/savefeaturedproductsection ',[]) }}" method="post" enctype="multipart/form-data">
-                                 @csrf
-                                 @if($featuredproductsection)
-                                    @method('PUT')
-                                 @endif
+                              <form class="form-horizontal" action="<?php echo e($featuredproductsection ? url('admin/updatefeatproductsection', [$featuredproductsection ->id])  : url('admin/savefeaturedproductsection ',[])); ?>" method="post" enctype="multipart/form-data">
+                                 <?php echo csrf_field(); ?>
+                                 <?php if($featuredproductsection): ?>
+                                    <?php echo method_field('PUT'); ?>
+                                 <?php endif; ?>
                                  <div class="box box-info">
                                     <div class="box-body">
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label">Featured Product Title<span>*</span></label>
                                           <div class="col-sm-8">
-                                             <input type="text" class="form-control" name="featured_product_title" value="{{ $featuredproductsection ? $featuredproductsection->featured_product_title : '' }}">
+                                             <input type="text" class="form-control" name="featured_product_title" value="<?php echo e($featuredproductsection ? $featuredproductsection->featured_product_title : ''); ?>">
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label">Featured Product SubTitle<span>*</span></label>
                                           <div class="col-sm-8">
-                                             <input type="text" class="form-control" name="featured_product_subtitle" value="{{ $featuredproductsection ? $featuredproductsection->featured_product_subtitle : '' }}">
+                                             <input type="text" class="form-control" name="featured_product_subtitle" value="<?php echo e($featuredproductsection ? $featuredproductsection->featured_product_subtitle : ''); ?>">
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label"></label>
                                           <div class="col-sm-6">
-                                             <button type="submit" class="btn btn-success pull-left" name="form6_4">{{ $featuredproductsection  ? 'Update' : 'Save '}}</button>
+                                             <button type="submit" class="btn btn-success pull-left" name="form6_4"><?php echo e($featuredproductsection  ? 'Update' : 'Save '); ?></button>
                                           </div>
                                        </div>
                                     </div>
                                  </div>
                               </form>
                               <h3>Latest Product Section</h3>
-                              <form class="form-horizontal" action="{{ $latestproductsection ? url('admin/updatelatestproductsection', [$latestproductsection ->id])  : url('admin/savelatestproductsection',[]) }}" method="post" enctype="multipart/form-data">
-                                 @csrf
-                                 @if($latestproductsection)
-                                    @method('PUT')
-                                 @endif
+                              <form class="form-horizontal" action="<?php echo e($latestproductsection ? url('admin/updatelatestproductsection', [$latestproductsection ->id])  : url('admin/savelatestproductsection',[])); ?>" method="post" enctype="multipart/form-data">
+                                 <?php echo csrf_field(); ?>
+                                 <?php if($latestproductsection): ?>
+                                    <?php echo method_field('PUT'); ?>
+                                 <?php endif; ?>
                                  <div class="box box-info">
                                     <div class="box-body">
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label">Latest Product Title<span>*</span></label>
                                           <div class="col-sm-8">
-                                             <input type="text" class="form-control" name="latest_product_title" value="{{ $latestproductsection ? $latestproductsection->latest_product_title : '' }}" required>
+                                             <input type="text" class="form-control" name="latest_product_title" value="<?php echo e($latestproductsection ? $latestproductsection->latest_product_title : ''); ?>" required>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label">Latest Product SubTitle<span>*</span></label>
                                           <div class="col-sm-8">
-                                             <input type="text" class="form-control" name="latest_product_subtitle" value="{{ $latestproductsection ? $latestproductsection->latest_product_subtitle : '' }}" required>
+                                             <input type="text" class="form-control" name="latest_product_subtitle" value="<?php echo e($latestproductsection ? $latestproductsection->latest_product_subtitle : ''); ?>" required>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label"></label>
                                           <div class="col-sm-6">
-                                             <button type="submit" class="btn btn-success pull-left" name="form6_5">{{ $latestproductsection  ? 'Update' : 'Save '}}</button>
+                                             <button type="submit" class="btn btn-success pull-left" name="form6_5"><?php echo e($latestproductsection  ? 'Update' : 'Save '); ?></button>
                                           </div>
                                        </div>
                                     </div>
                                  </div>
                               </form>
                               <h3>Popular Product Section</h3>
-                              <form class="form-horizontal" action="{{ $popularproductsection ? url('admin/updatepopularproductsection', [$popularproductsection ->id])  : url('admin/savepopularproductsection',[]) }}" method="post" enctype="multipart/form-data">
-                                 @csrf
-                                 @if($popularproductsection)
-                                    @method('PUT')
-                                 @endif
+                              <form class="form-horizontal" action="<?php echo e($popularproductsection ? url('admin/updatepopularproductsection', [$popularproductsection ->id])  : url('admin/savepopularproductsection',[])); ?>" method="post" enctype="multipart/form-data">
+                                 <?php echo csrf_field(); ?>
+                                 <?php if($popularproductsection): ?>
+                                    <?php echo method_field('PUT'); ?>
+                                 <?php endif; ?>
                                  <div class="box box-info">
                                     <div class="box-body">
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label">Popular Product Title<span>*</span></label>
                                           <div class="col-sm-8">
-                                             <input type="text" class="form-control" name="popular_product_title" value="{{ $popularproductsection ? $popularproductsection->popular_product_title : '' }}" required>
+                                             <input type="text" class="form-control" name="popular_product_title" value="<?php echo e($popularproductsection ? $popularproductsection->popular_product_title : ''); ?>" required>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label">Popular Product SubTitle<span>*</span></label>
                                           <div class="col-sm-8">
-                                             <input type="text" class="form-control" name="popular_product_subtitle" value="{{ $popularproductsection ? $popularproductsection->popular_product_subtitle : '' }}" required>
+                                             <input type="text" class="form-control" name="popular_product_subtitle" value="<?php echo e($popularproductsection ? $popularproductsection->latest_product_subtitle : ''); ?>" required>
                                           </div>
                                        </div>
                                        <div class="form-group">
                                           <label for="" class="col-sm-3 control-label"></label>
                                           <div class="col-sm-6">
-                                             <button type="submit" class="btn btn-success pull-left" name="form6_6">{{ $popularproductsection  ? 'Update' : 'Save '}}</button>
+                                             <button type="submit" class="btn btn-success pull-left" name="form6_6"><?php echo e($popularproductsection  ? 'Update' : 'Save '); ?></button>
                                           </div>
                                        </div>
                                     </div>
@@ -540,7 +541,7 @@
                                        <td style="width:50%">
                                           <h4>Existing Login Page Banner</h4>
                                           <p>
-                                             <img src="{{asset('backend/uploads/banner_login.jpg')}}" alt="" style="width: 100%;height:auto;"> 
+                                             <img src="<?php echo e(asset('backend/uploads/banner_login.jpg')); ?>" alt="" style="width: 100%;height:auto;"> 
                                           </p>
                                        </td>
                                        <td style="width:50%">
@@ -555,7 +556,7 @@
                                        <td style="width:50%">
                                           <h4>Existing Registration Page Banner</h4>
                                           <p>
-                                             <img src="{{asset('backend/uploads/banner_registration.jpg')}}" alt="" style="width: 100%;height:auto;">  
+                                             <img src="<?php echo e(asset('backend/uploads/banner_registration.jpg')); ?>" alt="" style="width: 100%;height:auto;">  
                                           </p>
                                        </td>
                                        <td style="width:50%">
@@ -570,7 +571,7 @@
                                        <td style="width:50%">
                                           <h4>Existing Forget Password Page Banner</h4>
                                           <p>
-                                             <img src="{{asset('backend/uploads/banner_forget_password.jpg')}}" alt="" style="width: 100%;height:auto;">   
+                                             <img src="<?php echo e(asset('backend/uploads/banner_forget_password.jpg')); ?>" alt="" style="width: 100%;height:auto;">   
                                           </p>
                                        </td>
                                        <td style="width:50%">
@@ -585,7 +586,7 @@
                                        <td style="width:50%">
                                           <h4>Existing Reset Password Page Banner</h4>
                                           <p>
-                                             <img src="{{asset('backend/uploads/banner_reset_password.jpg')}}" alt="" style="width: 100%;height:auto;">   
+                                             <img src="<?php echo e(asset('backend/uploads/banner_reset_password.jpg')); ?>" alt="" style="width: 100%;height:auto;">   
                                           </p>
                                        </td>
                                        <td style="width:50%">
@@ -600,7 +601,7 @@
                                        <td style="width:50%">
                                           <h4>Existing Search Page Banner</h4>
                                           <p>
-                                             <img src="{{asset('backend/uploads/banner_search.jpg')}}" alt="" style="width: 100%;height:auto;">  
+                                             <img src="<?php echo e(asset('backend/uploads/banner_search.jpg')); ?>" alt="" style="width: 100%;height:auto;">  
                                           </p>
                                        </td>
                                        <td style="width:50%">
@@ -615,7 +616,7 @@
                                        <td style="width:50%">
                                           <h4>Existing Cart Page Banner</h4>
                                           <p>
-                                             <img src="{{asset('backend/uploads/banner_cart.jpg')}}" alt="" style="width: 100%;height:auto;">  
+                                             <img src="<?php echo e(asset('backend/uploads/banner_cart.jpg')); ?>" alt="" style="width: 100%;height:auto;">  
                                           </p>
                                        </td>
                                        <td style="width:50%">
@@ -630,7 +631,7 @@
                                        <td style="width:50%">
                                           <h4>Existing Checkout Page Banner</h4>
                                           <p>
-                                             <img src="{{asset('backend/uploads/banner_checkout.jpg')}}" alt="" style="width: 100%;height:auto;">  
+                                             <img src="<?php echo e(asset('backend/uploads/banner_checkout.jpg')); ?>" alt="" style="width: 100%;height:auto;">  
                                           </p>
                                        </td>
                                        <td style="width:50%">
@@ -645,7 +646,7 @@
                                        <td style="width:50%">
                                           <h4>Existing Product Category Page Banner</h4>
                                           <p>
-                                             <img src="{{asset('backend/uploads/banner_product_category.jpg')}}" alt="" style="width: 100%;height:auto;">  
+                                             <img src="<?php echo e(asset('backend/uploads/banner_product_category.jpg')); ?>" alt="" style="width: 100%;height:auto;">  
                                           </p>
                                        </td>
                                        <td style="width:50%">
@@ -750,4 +751,5 @@
             </section>
          </div>
         <!-- end content -->
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin_layout.master', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\basiclessons\resources\views\admin\settings.blade.php ENDPATH**/ ?>

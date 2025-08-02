@@ -1,0 +1,71 @@
+
+<?php $__env->startSection('title', 'edit top level category'); ?>
+
+<?php $__env->startSection('content'); ?>
+
+<!-- start content -->
+         <div class="content-wrapper">
+            <section class="content-header">
+               <div class="content-header-left">
+                  <h1>Edit Top Level Category</h1>
+               </div>
+               <div class="content-header-right">
+                  <a href="<?php echo e(url('/admin/toplevelcategory')); ?>" class="btn btn-primary btn-sm">View All</a>
+               </div>
+            </section>
+            <section class="content">
+               <div class="row">
+                  <div class="col-md-12">
+                     <form class="form-horizontal" action="" method="post">
+                        <div class="box box-info">
+                           <div class="box-body">
+                              <div class="form-group">
+                                 <label for="" class="col-sm-2 control-label">Top Category Name <span>*</span></label>
+                                 <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="tcat_name" value="Health and Household">
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label for="" class="col-sm-2 control-label">Show on Menu? <span>*</span></label>
+                                 <div class="col-sm-4">
+                                    <select name="show_on_menu" class="form-control" style="width:auto;">
+                                       <option value="0" >No</option>
+                                       <option value="1" selected>Yes</option>
+                                    </select>
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label for="" class="col-sm-2 control-label"></label>
+                                 <div class="col-sm-6">
+                                    <button type="submit" class="btn btn-success pull-left" name="form1">Update</button>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </section>
+            <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+               <div class="modal-dialog">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Delete Confirmation</h4>
+                     </div>
+                     <div class="modal-body">
+                        Are you sure want to delete this item?
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-danger btn-ok">Delete</a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+		<!-- end content -->
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin_layout.master', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\basiclessons\resources\views\admin\editTopLevelCategory.blade.php ENDPATH**/ ?>

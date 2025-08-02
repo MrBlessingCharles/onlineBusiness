@@ -1,0 +1,5 @@
+receive_email
+receive_email_subject
+
+receive_email_thank_you_message
+forget_password_message

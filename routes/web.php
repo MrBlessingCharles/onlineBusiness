@@ -85,3 +85,22 @@ Route::get('/admin/editservice', [App\Http\Controllers\SliderController::class, 
 
 //settings routes
 Route::post('/admin/savelogo', [App\Http\Controllers\SettingController::class, 'saveLogo']);
+Route::put('/admin/updatelogo/{id}', [App\Http\Controllers\SettingController::class, 'updateLogo']);
+Route::post('/admin/savefavicon', [App\Http\Controllers\SettingController::class, 'saveFavicon']); 
+Route::put('/admin/updatefavicon/{id}', [App\Http\Controllers\SettingController::class,'updateFavicon']);
+Route::post('/admin/saveinformation', [App\Http\Controllers\SettingController::class, 'saveInformation']);
+Route::put('/admin/updateinformation/{id}', [App\Http\Controllers\SettingController::class, 'updateInformation']);
+Route::post('/admin/savemessage', [App\Http\Controllers\SettingController::class, 'saveMessage']);
+Route::put('/admin/updatemessage/{id}', [App\Http\Controllers\SettingController::class, 'updateMessage']);
+Route::post('/admin/saveproductsetting', [App\Http\Controllers\SettingController::class, 'saveProductSetting']);
+Route::put('/admin/updateproductsetting/{id}', [App\Http\Controllers\SettingController::class, 'updateProductSetting']);
+Route::post('/admin/saveonoffsection', [App\Http\Controllers\SettingController::class, 'saveOnOffSection']);
+Route::put('/admin/updateonoffsection/{id}', [App\Http\Controllers\SettingController::class, 'updateOnOffSection']);
+Route::post('/admin/savemetasection', [App\Http\Controllers\SettingController::class, 'saveMetasection']);
+Route::put('/admin/updatemetasection/{id}', [App\Http\Controllers\SettingController::class, 'updateMetasection']);
+Route::post('/admin/savefeaturedproductsection', [App\Http\Controllers\SettingController::class, 'saveFeaturedProductSection']);
+Route::put('/admin/updatefeatproductsection/{id}', [App\Http\Controllers\SettingController::class, 'updateFeaturedProductSection']);
+Route::post('/admin/savelatestproductsection', [App\Http\Controllers\SettingController::class, 'saveLatestProductSection']);
+Route::put('/admin/updatelatestproductsection/{id}', [App\Http\Controllers\SettingController::class, 'updateLatestProductSection']);
+Route::post('/admin/savepopularproductsection', [App\Http\Controllers\SettingController::class, 'savePopularProductSection']);
+
