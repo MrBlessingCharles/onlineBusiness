@@ -55,4 +55,4 @@
 
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('admin_layout.master', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\basiclessons\resources\views\admin\addcountry.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin_layout.master', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\basiclessons\resources\views/admin/addcountry.blade.php ENDPATH**/ ?>

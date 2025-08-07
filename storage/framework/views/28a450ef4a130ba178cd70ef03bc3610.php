@@ -10,7 +10,7 @@
                   <h1>Edit Color</h1>
                </div>
                <div class="content-header-right">
-                  <a href="color.php" class="btn btn-primary btn-sm">View All</a>
+                  <a href="<?php echo e(url('admin/color')); ?>" class="btn btn-primary btn-sm">View All</a>
                </div>
             </section>
 

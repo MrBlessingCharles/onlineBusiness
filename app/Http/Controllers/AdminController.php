@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\size;
 use App\Models\color;
 use App\Models\banner;
+use App\Models\country;
 use App\Models\favicon;
 use App\Models\Message;
 use App\Models\logoimage;
@@ -87,8 +88,10 @@ class AdminController extends Controller
 
     public function viewcountry()
     {
+        $countries = country::get();
+        $increment = 1;
         // Logic to display the admin country management page
-        return view('admin.country');
+        return view('admin.country' , compact('countries', 'increment'));
     }
 
     public function viewaddcountry()
@@ -97,11 +100,7 @@ class AdminController extends Controller
         return view('admin.addcountry');
     }
 
-    public function vieweditcountry()
-    {
-        // Logic to display the page for editing an existing country
-        return view('admin.editcountry');
-    }
+    
     
     public function viewshippingcoast()
     {

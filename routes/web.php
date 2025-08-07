@@ -120,3 +120,8 @@ Route::post('/admin/savecolor', [App\Http\Controllers\ShopController::class, 'sa
 Route::get('/admin/editcolor/{id}', [App\Http\Controllers\ShopController::class, 'vieweditcolor']);
 Route::put('/admin/updatecolor/{id}', [App\Http\Controllers\ShopController::class, 'updatecolor']);
 Route::delete('/admin/deletecolor/{id}', [App\Http\Controllers\ShopController::class, 'deletecolor']);
+
+Route::post('/admin/savecountry', [App\Http\Controllers\ShopController::class, 'savecountry']);
+Route::get('/admin/editcountry/{id}', [App\Http\Controllers\ShopController::class, 'vieweditcountry']);
+Route::put('/admin/updatecountry/{id}', [App\Http\Controllers\ShopController::class, 'updatecountry']);
+Route::delete('/admin/deletecountry/{id}',[App\Http\Controllers\ShopController::class, 'deletecountry']);

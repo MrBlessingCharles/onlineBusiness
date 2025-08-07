@@ -19,7 +19,7 @@
                   <div class="col-md-12">
                      <div class="callout callout-success">
                         <p>{{Session::get("status")}}</p>
-                     </div>
+                      </div>
                   </div>
                   </div>
             </section>

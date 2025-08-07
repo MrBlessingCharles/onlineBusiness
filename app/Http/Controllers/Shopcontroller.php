@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\size;
 use App\Models\color;
+use App\Models\country;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -115,6 +116,59 @@ class Shopcontroller extends Controller
             return redirect()->back()->with('status', 'Color deleted successfully!');
         } else {
             return redirect()->back()->with('error', 'Color not found!');
+        }
+    }
+
+    //COUNTRY MANAGEMENT
+    public function savecountry(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'country_name' => 'required|string|max:255',
+        ]);
+
+        // Create a new country instance and save it to the database
+        $country = new country();
+        $country->country_name = $request->input('country_name');
+        $country->save();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('status', 'Country added successfully!');
+ 
+    }
+
+    public function vieweditcountry(Request $request, $id)
+    {
+        // Find the country by ID and return it to the edit view
+        $country = country::find($id);
+        return view('admin.editcountry', compact('country'));
+    }
+
+    public function updatecountry(Request $request, $id)
+    {
+        // Validate the request data
+        $request->validate([
+            'country_name' => 'required|string|max:255',
+        ]);
+
+        // Find the country by ID and update it
+        $country = country::find($id);
+        $country->country_name = $request->input('country_name');
+        $country->update();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('status', 'Country updated successfully!');
+    }
+
+    public function deletecountry($id)
+    {
+        // Find the country by ID and delete it
+        $country = country::find($id);
+        if ($country) {
+            $country->delete();
+            return redirect()->back()->with('status', 'Country deleted successfully!');
+        } else {
+            return redirect()->back()->with('error', 'Country not found!');
         }
     }
 }

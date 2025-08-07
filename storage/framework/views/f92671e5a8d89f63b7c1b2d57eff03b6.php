@@ -9,15 +9,27 @@
             <h1>View Countries</h1>
          </div>
          <div class="content-header-right">
-            <a href="country-add.php" class="btn btn-primary btn-sm">Add New</a>
+            <a href="<?php echo e(url('admin/addcountry')); ?>" class="btn btn-primary btn-sm">Add New</a>
          </div>
       </section>
+       <?php if(session('status')): ?>
+            <section class="content" style="min-height:auto;margin-bottom: -30px;">
+                  <div class="row">
+                  <div class="col-md-12">
+                     <div class="callout callout-success">
+                        <p><?php echo e(Session::get("status")); ?></p>
+                      </div>
+                  </div>
+                  </div>
+            </section>
+         <?php endif; ?>
       <section class="content">
          <div class="row">
             <div class="col-md-12">
                <div class="box box-info">
                   <div class="box-body table-responsive">
                      <table id="example1" class="table table-bordered table-hover table-striped">
+                    
                         <thead>
                            <tr>
                               <th>#</th>
@@ -26,15 +38,28 @@
                            </tr>
                         </thead>
                         <tbody>
+                            <?php $__currentLoopData = $countries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                            <tr>
-                              <td>1</td>
-                              <td>Afghanistan</td>
-                              <td>
+                              <td><?php echo e($increment++); ?></td>
+                              <td><?php echo e($country->country_name); ?></td>
+                               <td style="display: flex;">
+                                    <a href="<?php echo e(url('admin/editcountry', [$country->id])); ?>" class="btn btn-primary btn-xs">Edit</a>
+                                    <!-- <a href="#" class="btn btn-danger btn-xs" data-href="size-delete.php?id=1" data-toggle="modal" data-target="#confirm-delete">Delete</a> -->
+                                    <form action="<?php echo e(url('admin/deletecountry', [$country->id])); ?>" method="post">
+                                       <?php echo csrf_field(); ?>
+                                       <?php echo method_field('DELETE'); ?>
+   
+                                       <button type="submit" class="btn btn-danger btn-xs" style="margin-left:5px;">Delete</button>
+                                    </form> 
+
+                                 </td>
+                              <!-- <td>
                                  <a href="country-edit.php?id=1" class="btn btn-primary btn-xs">Edit</a>
                                  <a href="#" class="btn btn-danger btn-xs" data-href="country-delete.php?id=1" data-toggle="modal" data-target="#confirm-delete">Delete</a>
-                              </td>
+                              </td> -->
                            </tr>
-                           <tr>
+                           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                           <!-- <tr>
                               <td>2</td>
                               <td>Albania</td>
                               <td>
@@ -1985,7 +2010,7 @@
                                  <a href="country-edit.php?id=245" class="btn btn-primary btn-xs">Edit</a>
                                  <a href="#" class="btn btn-danger btn-xs" data-href="country-delete.php?id=245" data-toggle="modal" data-target="#confirm-delete">Delete</a>
                               </td>
-                           </tr>
+                           </tr> -->
                         </tbody>
                      </table>
                   </div>

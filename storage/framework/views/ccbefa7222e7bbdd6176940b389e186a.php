@@ -12,6 +12,18 @@
             <a href="<?php echo e(url('admin/addcolor')); ?>" class="btn btn-primary btn-sm">Add New</a>
          </div>
       </section>
+
+       <?php if(session('status')): ?>
+            <section class="content" style="min-height:auto;margin-bottom: -30px;">
+                  <div class="row">
+                  <div class="col-md-12">
+                     <div class="callout callout-success">
+                        <p><?php echo e(Session::get("status")); ?></p>
+                      </div>
+                  </div>
+                  </div>
+            </section>
+         <?php endif; ?>
       <section class="content">
          <div class="row">
             <div class="col-md-12">
