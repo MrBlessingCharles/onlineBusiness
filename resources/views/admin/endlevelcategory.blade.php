@@ -13,6 +13,18 @@
             <a href="{{url('/admin/addendlevelcategory')}}" class="btn btn-primary btn-sm">Add New</a>
          </div>
       </section>
+      @if(session('status'))
+                  <section class="content" style="min-height:auto;margin-bottom: -30px;">
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="callout callout-success">
+                              <p>{{Session::get("status")}}</p>
+                           </div>
+                        </div>
+                     </div>
+                  </section>
+       @endif
+
       <section class="content">
          <div class="row">
             <div class="col-md-12">
@@ -29,17 +41,26 @@
                            </tr>
                         </thead>
                         <tbody>
+                           @foreach($endlevelcategories as $endlevelcategory)
                            <tr>
-                              <td>1</td>
-                              <td>Stationery and Gift Wrapping Supplies</td>
-                              <td>Household</td>
-                              <td>Health and Household</td>
-                              <td>
-                                 <a href="end-category-edit.php?id=79" class="btn btn-primary btn-xs">Edit</a>
-                                 <a href="#" class="btn btn-danger btn-xs" data-href="end-category-delete.php?id=79" data-toggle="modal" data-target="#confirm-delete">Delete</a>
+                              <td>{{$increment}}</td>
+                              <td>{{$endlevelcategory->ecat_name }}</td>
+                              <td>{{$endlevelcategory->mcat_name }}</td>
+                              <td>{{$endlevelcategory->tcat_name }}</td>
+                              <td style="display: flex;">
+                                    <a href="{{url('admin/editendlevelcategory', [$endlevelcategory->id])}}" class="btn btn-primary btn-xs">Edit</a>
+                                    <!-- <a href="#" class="btn btn-danger btn-xs" data-href="size-delete.php?id=1" data-toggle="modal" data-target="#confirm-delete">Delete</a> -->
+                                    <form action="{{url('admin/deleteendlevelcategory', [$endlevelcategory->id])}}" method="post">
+                                       @csrf
+                                       @method('DELETE')
+   
+                                       <button type="submit" class="btn btn-danger btn-xs" style="margin-left:5px;">Delete</button>
+                                    </form> 
+
                               </td>
                            </tr>
-                           <tr>
+                           @endforeach
+                           <!-- <tr>
                               <td>2</td>
                               <td>Household Supplies</td>
                               <td>Household</td>
@@ -808,7 +829,7 @@
                                  <a href="end-category-edit.php?id=1" class="btn btn-primary btn-xs">Edit</a>
                                  <a href="#" class="btn btn-danger btn-xs" data-href="end-category-delete.php?id=1" data-toggle="modal" data-target="#confirm-delete">Delete</a>
                               </td>
-                           </tr>
+                           </tr> -->
                         </tbody>
                      </table>
                   </div>

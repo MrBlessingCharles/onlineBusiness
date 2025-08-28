@@ -13,29 +13,42 @@
                   <a href="<?php echo e(url('/admin/middlelevelcategory')); ?>" class="btn btn-primary btn-sm">View All</a>
                </div>
             </section>
+
+            <?php if(session('status')): ?>
+                  <section class="content" style="min-height:auto;margin-bottom: -30px;">
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="callout callout-success">
+                              <p><?php echo e(Session::get("status")); ?></p>
+                           </div>
+                        </div>
+                     </div>
+                  </section>
+               <?php endif; ?>
+
+
             <section class="content">
                <div class="row">
                   <div class="col-md-12">
-                     <form class="form-horizontal" action="" method="post">
+                     <form class="form-horizontal" action="<?php echo e(url('admin/savemiddlelevelcategory', [] )); ?>" method="post">
+                        <?php echo csrf_field(); ?>
                         <div class="box box-info">
                            <div class="box-body">
                               <div class="form-group">
                                  <label for="" class="col-sm-3 control-label">Top Level Category Name <span>*</span></label>
                                  <div class="col-sm-4">
-                                    <select name="tcat_id" class="form-control select2">
+                                    <select name="tcat_name" class="form-control select2">
                                        <option value="">Select Top Level Category</option>
-                                       <option value="4">Electronics</option>
-                                       <option value="5">Health and Household</option>
-                                       <option value="3">Kids</option>
-                                       <option value="1">Men</option>
-                                       <option value="2">Women</option>
+                                       <?php $__currentLoopData = $toplevelcategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $toplevelcategory): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                       <option value="<?php echo e($toplevelcategory->tcat_name); ?>"><?php echo e($toplevelcategory->tcat_name); ?></option>
+                                       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                  </div>
                               </div>
                               <div class="form-group">
                                  <label for="" class="col-sm-3 control-label">Mid Level Category Name <span>*</span></label>
                                  <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="mcat_name">
+                                    <input type="text" class="form-control" name="mcat_name"  required>
                                  </div>
                               </div>
                               <div class="form-group">

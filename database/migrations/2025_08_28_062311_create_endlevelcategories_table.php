@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shippingcoasts', function (Blueprint $table) {
+        Schema::create('endlevelcategories', function (Blueprint $table) {
             $table->id();
-            $table->string('country_id');
-            $table->string('amount');
+            $table->string('tcat_name');
+            $table->string('mcat_name');
+            $table->string('ecat_name');
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shippingcoasts');
+        Schema::dropIfExists('endlevelcategories');
     }
 };

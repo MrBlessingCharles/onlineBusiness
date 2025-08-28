@@ -9,18 +9,34 @@
             <h1>Add Shipping Cost</h1>
          </div>
       </section>
+       @if(session('status'))
+               <section class="content" style="min-height:auto;margin-bottom: -30px;">
+                     <div class="row">
+                     <div class="col-md-12">
+                        <div class="callout callout-success">
+                           <p>{{Session::get("status")}}</p>
+                        </div>
+                     </div>
+                     </div>
+               </section>
+      @endif
       <section class="content">
          <div class="row">
             <div class="col-md-12">
-               <form class="form-horizontal" action="" method="post">
+               <form class="form-horizontal" action="{{url('admin/saveshippingcoast')}}" method="post">
+                  @csrf
                   <div class="box box-info">
                      <div class="box-body">
                         <div class="form-group">
                            <label for="" class="col-sm-2 control-label">Select Country <span>*</span></label>
                            <div class="col-sm-4">
                               <select name="country_id" class="form-control select2">
-                                 <option value="">Select a country</option>
-                                 <option value="1">Afghanistan</option>
+                                 <option >Select a country</option>
+                                 @foreach($countries as $country)
+                                    <option value="{{$country->id}}">{{$country->country_name}}</option>
+                                 @endforeach
+                                 <!-- <option value="">Select a country</option>
+                                 <option value="1">Afghanistan</option> -->
                                  <!-- <option value="2">Albania</option>
                                  <option value="3">Algeria</option>
                                  <option value="4">American Samoa</option>
@@ -32,7 +48,7 @@
                         <div class="form-group">
                            <label for="" class="col-sm-2 control-label">Amount <span>*</span></label>
                            <div class="col-sm-4">
-                              <input type="text" class="form-control" name="amount">
+                              <input type="numeric" class="form-control" name="amount" required>
                            </div>
                         </div>
                         <div class="form-group">
@@ -67,16 +83,29 @@
                            </tr>
                         </thead>
                         <tbody>
+                           @foreach($shippingcoasts as $shippingcoast)
                            <tr>
-                              <td>1</td>
-                              <td>Australia</td>
-                              <td>8</td>
-                              <td>
+                              <td>{{$increment++}}</td>
+                              <td>{{$shippingcoast->country ? $shippingcoast->country->country_name : ''}}</td>
+                              <td>{{$shippingcoast->amount}}</td>
+                               <td style="display: flex;">
+                                    <a href="{{url('admin/editshippingcoast', [$shippingcoast->id])}}" class="btn btn-primary btn-xs">Edit</a>
+                                    <!-- <a href="#" class="btn btn-danger btn-xs" data-href="size-delete.php?id=1" data-toggle="modal" data-target="#confirm-delete">Delete</a> -->
+                                    <form action="{{url('admin/deleteshippingcoast', [$shippingcoast->id])}}" method="post">
+                                       @csrf
+                                       @method('DELETE')
+   
+                                       <button type="submit" class="btn btn-danger btn-xs" style="margin-left:5px;">Delete</button>
+                                    </form> 
+
+                                 </td>
+                              <!-- <td>
                                  <a href="shipping-cost-edit.php?id=3" class="btn btn-primary btn-xs">Edit</a>
                                  <a href="#" class="btn btn-danger btn-xs" data-href="shipping-cost-delete.php?id=3" data-toggle="modal" data-target="#confirm-delete">Delete</a>
-                              </td>
+                              </td> -->
                            </tr>
-                           <tr>
+                           @endforeach
+                           <!-- <tr>
                               <td>2</td>
                               <td>Pakistan</td>
                               <td>10</td>
@@ -102,7 +131,7 @@
                                  <a href="shipping-cost-edit.php?id=4" class="btn btn-primary btn-xs">Edit</a>
                                  <a href="#" class="btn btn-danger btn-xs" data-href="shipping-cost-delete.php?id=4" data-toggle="modal" data-target="#confirm-delete">Delete</a>
                               </td>
-                           </tr>
+                           </tr> -->
                         </tbody>
                      </table>
                   </div>
@@ -117,24 +146,28 @@
       <section class="content">
       <div class="row">
       <div class="col-md-12">
-      <form class="form-horizontal" action="" method="post">
-      <div class="box box-info">
-      <div class="box-body">
-      <div class="form-group">
-      <label for="" class="col-sm-2 control-label">Amount <span>*</span></label>
-      <div class="col-sm-4">
-      <input type="text" class="form-control" name="amount" value="100">
-      </div>
-      </div>
-      <div class="form-group">
-      <label for="" class="col-sm-2 control-label"></label>
-      <div class="col-sm-6">
-      <button type="submit" class="btn btn-success pull-left" name="form2">Update</button>
-      </div>
-      </div>
-      </div>
-      </div>
-      </form>
+         <form class="form-horizontal" action="{{$shippingcoastrest ? url('admin/updaterestamount', [$shippingcoastrest->id]) : url('admin/saverestamount') }}" method="post">
+         @csrf
+         @if($shippingcoastrest)
+            @method('PUT')
+         @endif
+            <div class="box box-info">
+               <div class="box-body">
+                  <div class="form-group">
+                  <label for="" class="col-sm-2 control-label">Amount <span>*</span></label>
+                     <div class="col-sm-4">
+                     <input type="number" class="form-control" name="amount" value="{{$shippingcoastrest ? $shippingcoastrest->amount : ''}}" required>
+                     </div>
+                     </div>
+                     <div class="form-group">
+                     <label for="" class="col-sm-2 control-label"></label>
+                     <div class="col-sm-6">
+                     <button type="submit" class="btn btn-success pull-left" name="form2">{{$shippingcoastrest ? 'update' :'save'}}</button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </form>
       </div>
       </div>
       </section>

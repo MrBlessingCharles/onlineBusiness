@@ -43,16 +43,19 @@ Route::get('/admin/editshippingcoast', [App\Http\Controllers\AdminController::cl
 
 Route::get('/admin/toplevelcategory', [App\Http\Controllers\CategoryController::class, 'viewtoplevelcategory']);
 Route::get('/admin/addtoplevelcategory', [App\Http\Controllers\CategoryController::class,'viewaddtoplevelcategory']);
-Route::get('/admin/edittoplevelcategory', [App\Http\Controllers\CategoryController::class, 'viewedittoplevelcategory']);
-
 
 Route::get('/admin/middlelevelcategory', [App\Http\Controllers\CategoryController::class, 'viewmiddlelevelcategory']);
 Route::get('/admin/addmiddlelevelcategory', [App\Http\Controllers\CategoryController::class,'viewaddmiddlelevelcategory']);
-Route::get('/admin/editmiddlelevelcategory', [App\Http\Controllers\CategoryController::class, 'vieweditmiddlelevelcategory']);
+Route::get('/admin/editmiddlelevelcategory/{id}', [App\Http\Controllers\CategoryController::class, 'vieweditmidllelevelcategory']);
 
+
+//endlevel category
 Route::get('/admin/endlevelcategory', [App\Http\Controllers\CategoryController::class, 'viewendlevelcategory']);
 Route::get('/admin/addendlevelcategory', [App\Http\Controllers\CategoryController::class, 'viewaddendlevelcategory']);
-Route::get('/admin/editendlevelcategory', [App\Http\Controllers\CategoryController::class, 'vieweditendlevelcategory']);
+Route::get('/admin/editendlevelcategory/{id}', [App\Http\Controllers\CategoryController::class, 'vieweditendlevelcategory']);
+Route::put('/admin/updateendlevelcategory/{id}', [App\Http\Controllers\CategoryController::class, 'updateendlevelcategory']);
+Route::delete('/admin/deleteendlevelcategory/{id}', [App\Http\Controllers\CategoryController::class, 'deleteendlevelcategory']);
+
 
 Route::get('/admin/faq', [App\Http\Controllers\AdminController::class, 'viewfaq'])->name('viewfaq');
 Route::get('/admin/addfaq', [App\Http\Controllers\AdminController::class, 'viewaddfaq'])->name('viewaddfaq');
@@ -70,6 +73,7 @@ Route::get('/admin/adminprofile', [App\Http\Controllers\AdminController::class, 
 Route::get('/admin/product', [App\Http\Controllers\ProductController::class, 'viewproduct']);
 Route::get('/admin/addproduct', [App\Http\Controllers\ProductController::class, 'viewaddproduct']);
 Route::get('/admin/editproduct', [App\Http\Controllers\ProductController::class, 'vieweditproduct']);
+Route::post('/admin/saveproduct', [App\Http\Controllers\ProductController::class, 'saveproduct']);
 
 Route::get('/admin/orders', [App\Http\Controllers\ProductController::class, 'vieworders'])->name('vieworders');
 
@@ -125,3 +129,23 @@ Route::post('/admin/savecountry', [App\Http\Controllers\ShopController::class, '
 Route::get('/admin/editcountry/{id}', [App\Http\Controllers\ShopController::class, 'vieweditcountry']);
 Route::put('/admin/updatecountry/{id}', [App\Http\Controllers\ShopController::class, 'updatecountry']);
 Route::delete('/admin/deletecountry/{id}',[App\Http\Controllers\ShopController::class, 'deletecountry']);
+
+Route::post('/admin/saveshippingcoast', [App\Http\Controllers\ShopController::class, 'saveshippingcoast']);
+Route::get('/admin/editshippingcoast/{id}', [App\Http\Controllers\ShopController::class, 'vieweditshippingcoast']);
+Route::put('/admin/updateshippingcoast/{id}', [App\Http\Controllers\ShopController::class, 'updateshippingcoast']);
+Route::delete('/admin/deleteshippingcoast/{id}', [App\Http\Controllers\ShopController::class, 'deleteshippingcoast']);
+
+Route::post('/admin/saverestamount', [App\Http\Controllers\ShopController::class, 'saveshippingcoastrest']);
+Route::put('/admin/updaterestamount/{id}', [App\Http\Controllers\ShopController::class, 'updateshippingcoastrest']);
+
+Route::post('/admin/savetoplevelcategory', [App\Http\Controllers\ShopController::class, 'savetoplevelcategory']);
+Route::put('/admin/updatetoplevelcategory/{id}', [App\Http\Controllers\ShopController::class, 'viewedupdatetoplevelcategory']);
+Route::get('/admin/edittoplevelcategory/{id}', [App\Http\Controllers\ShopController::class, 'viewedittoplevelcategory']);
+Route::delete('/admin/deletetoplevelcategory/{id}', [App\Http\Controllers\ShopController::class, 'deletetoplevelcategory']);
+
+Route::post('/admin/savemiddlelevelcategory', [App\Http\Controllers\CategoryController::class, 'savemiddlelevelcategory']);
+Route::put('/admin/updatemiddlelevelcategory/{id}', [App\Http\Controllers\CategoryController::class, 'updatemiddlelevelcategory']);
+Route::delete('/admin/deletemiddlelevelcategory/{id}', [App\Http\Controllers\CategoryController::class, 'deletemiddlelevelcategory']);
+
+//end level category
+Route::post('/admin/saveendlevelcategory', [App\Http\Controllers\CategoryController::class, 'saveendlevelcategory']);

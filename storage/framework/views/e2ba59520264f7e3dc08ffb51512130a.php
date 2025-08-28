@@ -13,24 +13,49 @@
                   <a href="<?php echo e(url('/admin/toplevelcategory')); ?>" class="btn btn-primary btn-sm">View All</a>
                </div>
             </section>
+            <?php if(session('status')): ?>
+               <section class="content" style="min-height:auto;margin-bottom: -30px;">
+                     <div class="row">
+                     <div class="col-md-12">
+                        <div class="callout callout-success">
+                           <p><?php echo e(Session::get("status")); ?></p>
+                        </div>
+                     </div>
+                     </div>
+               </section>
+            <?php endif; ?>
+
             <section class="content">
                <div class="row">
                   <div class="col-md-12">
-                     <form class="form-horizontal" action="" method="post">
+                     <form class="form-horizontal" action="<?php echo e(url('admin/updatetoplevelcategory', [$toplevelcategory->id])); ?>" method="post">
+                        <?php echo csrf_field(); ?>
+                        <?php echo method_field('PUT'); ?>
                         <div class="box box-info">
                            <div class="box-body">
                               <div class="form-group">
                                  <label for="" class="col-sm-2 control-label">Top Category Name <span>*</span></label>
                                  <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="tcat_name" value="Health and Household">
+                                    <input type="text" class="form-control" name="tcat_name" value="<?php echo e($toplevelcategory->tcat_name); ?>">
                                  </div>
                               </div>
                               <div class="form-group">
                                  <label for="" class="col-sm-2 control-label">Show on Menu? <span>*</span></label>
                                  <div class="col-sm-4">
+
                                     <select name="show_on_menu" class="form-control" style="width:auto;">
+                                       <?php if($toplevelcategory->show_on_menu==1): ?>
+
+
                                        <option value="0" >No</option>
                                        <option value="1" selected>Yes</option>
+
+                                       <?php else: ?>
+
+                                       <option value="0" selected>No</option>
+                                       <option value="1" >Yes</option>
+
+                                       <?php endif; ?>
                                     </select>
                                  </div>
                               </div>

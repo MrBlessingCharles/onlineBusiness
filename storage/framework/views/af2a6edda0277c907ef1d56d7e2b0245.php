@@ -13,6 +13,18 @@
             <a href="<?php echo e(url('/admin/addendlevelcategory')); ?>" class="btn btn-primary btn-sm">Add New</a>
          </div>
       </section>
+      <?php if(session('status')): ?>
+                  <section class="content" style="min-height:auto;margin-bottom: -30px;">
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="callout callout-success">
+                              <p><?php echo e(Session::get("status")); ?></p>
+                           </div>
+                        </div>
+                     </div>
+                  </section>
+       <?php endif; ?>
+
       <section class="content">
          <div class="row">
             <div class="col-md-12">
@@ -29,17 +41,26 @@
                            </tr>
                         </thead>
                         <tbody>
+                           <?php $__currentLoopData = $endlevelcategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $endlevelcategory): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                            <tr>
-                              <td>1</td>
-                              <td>Stationery and Gift Wrapping Supplies</td>
-                              <td>Household</td>
-                              <td>Health and Household</td>
-                              <td>
-                                 <a href="end-category-edit.php?id=79" class="btn btn-primary btn-xs">Edit</a>
-                                 <a href="#" class="btn btn-danger btn-xs" data-href="end-category-delete.php?id=79" data-toggle="modal" data-target="#confirm-delete">Delete</a>
+                              <td><?php echo e($increment); ?></td>
+                              <td><?php echo e($endlevelcategory->ecat_name); ?></td>
+                              <td><?php echo e($endlevelcategory->mcat_name); ?></td>
+                              <td><?php echo e($endlevelcategory->tcat_name); ?></td>
+                              <td style="display: flex;">
+                                    <a href="<?php echo e(url('admin/editendlevelcategory', [$endlevelcategory->id])); ?>" class="btn btn-primary btn-xs">Edit</a>
+                                    <!-- <a href="#" class="btn btn-danger btn-xs" data-href="size-delete.php?id=1" data-toggle="modal" data-target="#confirm-delete">Delete</a> -->
+                                    <form action="<?php echo e(url('admin/deleteendlevelcategory', [$endlevelcategory->id])); ?>" method="post">
+                                       <?php echo csrf_field(); ?>
+                                       <?php echo method_field('DELETE'); ?>
+   
+                                       <button type="submit" class="btn btn-danger btn-xs" style="margin-left:5px;">Delete</button>
+                                    </form> 
+
                               </td>
                            </tr>
-                           <tr>
+                           <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                           <!-- <tr>
                               <td>2</td>
                               <td>Household Supplies</td>
                               <td>Household</td>
@@ -808,7 +829,7 @@
                                  <a href="end-category-edit.php?id=1" class="btn btn-primary btn-xs">Edit</a>
                                  <a href="#" class="btn btn-danger btn-xs" data-href="end-category-delete.php?id=1" data-toggle="modal" data-target="#confirm-delete">Delete</a>
                               </td>
-                           </tr>
+                           </tr> -->
                         </tbody>
                      </table>
                   </div>

@@ -14,8 +14,11 @@ use App\Models\information;
 use App\Models\Metasection;
 use App\Models\onoffsection;
 use Illuminate\Http\Request;
+use App\Models\shippingcoast;
 use App\Models\Paymentsetting;
 use App\Models\Productsetting;
+use App\Models\toplevelcategory;
+use App\Models\shippingcoastrest;
 use App\Models\featproductsection;
 use App\Http\Controllers\Controller;
 use App\Models\latestproductsection;
@@ -88,6 +91,7 @@ class AdminController extends Controller
 
     public function viewcountry()
     {
+        
         $countries = country::get();
         $increment = 1;
         // Logic to display the admin country management page
@@ -104,18 +108,18 @@ class AdminController extends Controller
     
     public function viewshippingcoast()
     {
+        $countries = country::get();
+        $shippingcoasts = shippingcoast::with('country')->get();
+        $shippingcoastrest = shippingcoastrest::first();
+        $increment = 1;
         // Logic to display the admin shipping coast management page
-        return view('admin.shippingcoast');
+        return view('admin.shippingcoast', compact('countries', 'shippingcoasts' , 'increment' , 'shippingcoastrest'));
     }
 
-     public function vieweditshippingcoast()
-    {
-        // Logic to display the admin shipping coast management page
-        return view('admin.editshippingcoast');
-    }
-
-
-     public function viewfaq()
+     
+   
+    
+        public function viewfaq()
     {
         // Logic to display the FAQ management page
         return view('admin.faq');

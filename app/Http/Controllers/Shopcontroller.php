@@ -6,6 +6,9 @@ use App\Models\size;
 use App\Models\color;
 use App\Models\country;
 use Illuminate\Http\Request;
+use App\Models\shippingcoast;
+use App\Models\toplevelcategory;
+use App\Models\shippingcoastrest;
 use App\Http\Controllers\Controller;
 
 class Shopcontroller extends Controller
@@ -171,4 +174,152 @@ class Shopcontroller extends Controller
             return redirect()->back()->with('error', 'Country not found!');
         }
     }
+
+    // SHIPPING COAST MANAGEMENT
+
+    public function saveshippingcoast(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'country_id' => 'required|exists:countries,id',
+            'amount' => 'required|numeric|min:0',
+        ]);
+
+        // Create a new shipping coast instance and save it to the database
+        $shippingCoast = new shippingcoast();
+        $shippingCoast->country_id = $request->input('country_id');
+        $shippingCoast->amount = $request->input('amount');
+        $shippingCoast->save();
+        return redirect()->back()->with('status', 'Shipping coast saved successfully!');
+    }
+
+    public function vieweditshippingcoast($id)
+    {
+        // Find the shipping coast by ID and return it to the edit view
+        $shippingcoast = shippingcoast::find($id);
+        $countries = country::where('country_name', '!=', $shippingcoast->country->country_name)->get();
+        return view('admin.editshippingcoast', compact('shippingcoast', 'countries'));
+    }
+
+    public function updateshippingcoast(Request $request, $id)
+    {
+        // Validate the request data
+        $request->validate([
+            'country_id' => 'required|exists:countries,id',
+            'amount' => 'required|numeric|min:0',
+        ]);
+
+        // Find the shipping coast by ID and update it
+        $shippingCoast = shippingcoast::find($id);
+        $shippingCoast->country_id = $request->input('country_id');
+        $shippingCoast->amount = $request->input('amount');
+        $shippingCoast->save();
+        return redirect()->back()->with('status', 'Shipping coast updated successfully!');
+        }
+
+    public function deleteshippingcoast($id){
+        // Find the shipping coast by ID and delete it
+        $shippingCoast = shippingcoast::find($id);
+        if ($shippingCoast) {
+            $shippingCoast->delete();
+            return redirect()->back()->with('status', 'Shipping coast deleted successfully!');
+        } else {
+            return redirect()->back()->with('error', 'Shipping coast not found!');
+        }
+    }
+
+    // Save shipping coast rest
+    public function saveshippingcoastrest(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'amount' => 'required|numeric|min:0',
+        ]);
+
+        // Create a new shipping coast rest instance and save it to the database
+        $shippingCoastRest = new shippingcoastrest();
+        $shippingCoastRest->amount = $request->input('amount');
+        $shippingCoastRest->save();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('status', 'The rest of the world amount has been saved successfully!');
+    }
+
+    // Update shipping coast rest
+    public function updateshippingcoastrest(Request $request, $id)
+    {
+        // Validate the request data
+        $request->validate([
+            'amount' => 'required|numeric|min:0',
+        ]);
+
+        // Find the shipping coast rest by ID and update it
+        $shippingCoastRest = shippingcoastrest::find($id);
+        if ($shippingCoastRest) {
+            $shippingCoastRest->amount = $request->input('amount');
+            $shippingCoastRest->save();
+            return redirect()->back()->with('status', 'The rest of the world amount has been updated successfully!');
+        } else {
+            return redirect()->back()->with('error', 'Shipping coast rest not found!');
+        }
+    }
+
+    //savetoplevelcategory
+    public function savetoplevelcategory(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'tcat_name' => 'required|string|max:255',
+            'show_on_menu' => 'required',
+        ]);
+
+        // Create a new toplevelcategory instance and save it to the database
+        $toplevelcategory = new toplevelcategory();
+        $toplevelcategory->tcat_name = $request->input('tcat_name');
+        $toplevelcategory->show_on_menu = $request->input('show_on_menu') ;
+        $toplevelcategory->save();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('status', 'Top level category added successfully!');
+    }
+
+    //Update toplevelcategory
+    public function viewedittoplevelcategory(Request $request, $id)
+    {
+        // Find the toplevelcategory by ID and return it to the edit view
+        $toplevelcategory = toplevelcategory::find($id);
+        return view('admin.editToplevelCategory', compact('toplevelcategory'));
+    }
+
+   //udpadte top level category
+    public function viewedupdatetoplevelcategory(Request $request, $id)
+    {
+        // Validate the request data
+        $request->validate([
+            'tcat_name' => 'required|string|max:255',
+            'show_on_menu' => 'required',
+        ]);
+
+        // Find the toplevelcategory by ID and update it
+        $toplevelcategory = toplevelcategory::find($id);
+        $toplevelcategory->tcat_name = $request->input('tcat_name');
+        $toplevelcategory->show_on_menu = $request->input('show_on_menu') ;
+        $toplevelcategory->update();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('status', 'Top level category updated successfully!');
+    }
+
+    public function deletetoplevelcategory($id)
+    {
+        // Find the toplevelcategory by ID and delete it
+        $toplevelcategory = toplevelcategory::find($id);
+        if ($toplevelcategory) {
+            $toplevelcategory->delete();
+            return redirect()->back()->with('status', 'Top level category deleted successfully!');
+        } else {
+            return redirect()->back()->with('error', 'Top level category not found!');
+        }
+    }
 }
+    
