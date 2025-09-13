@@ -9,7 +9,7 @@
     <!-- start banner -->
     <div class="page-banner" style="background-image: url(<?php echo e(asset('frontend/assets/uploads/banner_product_category.jpg')); ?>);">
       <div class="inner">
-         <h1>Category: Men</h1>
+         <h1>Category: <?php echo e($product->tcat_name); ?> </h1>
       </div>
   </div>
    <!-- end banner -->
@@ -107,4 +107,4 @@ $increment1= 1;
 
   <!-- ********************** end content ********************** -->
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('Client_layout.master', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\basiclessons\resources\views\Client\productbycategory.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('Client_layout.master', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\basiclessons\resources\views/client/productbycategory.blade.php ENDPATH**/ ?>

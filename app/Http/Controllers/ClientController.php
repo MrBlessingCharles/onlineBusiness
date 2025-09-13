@@ -2,15 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\slider;
+use App\Models\product;
+use App\Models\service;
 use Illuminate\Http\Request;
+use App\Models\Productsetting;
+use App\Http\Controllers\Controller;
 
 class ClientController extends Controller
 {
     public function home()
     {
+        $sliders = slider::get();
+        $increment = 0;
+        $increment1 = 0;
+        $services = service::get();
+        $count_products = Productsetting::first();
+        $featured_products = product::limit($count_products->total_featured_product_home)->get();
+        $latest_products = product::limit($count_products->total_latest_product_home)->orderby('created_at', 'DESC')->get();
+        $popular_products = product::limit($count_products->total_popular_product_home)->orderby('soldqty', 'DESC')->get();
         // Logic to retrieve and display clients can be added here
-        return view('client.home'); // Assuming you have a view for displaying clients
+        return view('client.home', compact('sliders', 'increment' , 'increment1', 'services' ,
+        'featured_products', 'latest_products', 'popular_products')); // Assuming you have a view for displaying clients
     }
 
 
@@ -80,16 +93,40 @@ class ClientController extends Controller
         // Logic for the orders page can be added here
         return view('client.customerorders'); // Assuming you have a view for the orders page
     }
-    public function viewproductbycategorypage()
+    public function viewproductbytopcategorypage($tcatname)
     {
         // Logic for the order details page can be added here
-        return view('client.productbycategory'); // Assuming you have a view for the order details page
+        $products= product::where('tcat_name',$tcatname)->get();
+        return view('client.productbycategory', compact('products')); // Assuming you have a view for the order details page
+    }
+    public function viewproductbymiddlecategorypage($tcatname, $mcatname)
+    {
+        // Logic for the order details page can be added here
+        $products= product::where('tcat_name',$tcatname)->where('mcat_name',$mcatname)->get();
+        return view('client.productbycategory', compact('products')); // Assuming you have a view for the order details page
     }
 
-    public function viewproductdetailspage()
+    public function viewproductbyendlevelcategorypage($tcatname, $mcatname, $ecatname)
     {
+        // Logic for the order details page can be added here
+        $products= product::where('tcat_name',$tcatname)->where('mcat_name',$mcatname)->where('ecat_name',$ecatname)->get();
+        return view('client.productbycategory', compact('products')); // Assuming you have a view for the order details page
+    }
+    public function viewproductdetailspage($id)
+    {
+        $products= product::find($id);
+        $increment = 0;
+        $selectedsizes = explode("*", $products->size);
+        array_pop($selectedsizes) ;
+
+        $selectedcolors = explode("*", $products->color);
+        array_pop($selectedcolors) ;
+
+        $selectedphotos = explode("*", $products->photo);
+        array_pop($selectedphotos) ;
         // Logic for the product details page can be added here
-        return view('client.productdetails'); // Assuming you have a view for the product details page
+        return view('client.productdetails', compact('products', 'increment', 'selectedsizes',
+         'selectedcolors', 'selectedphotos')); // Assuming you have a view for the product details page
     }
 
     public function viewloginpasswordpage()

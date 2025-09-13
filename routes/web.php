@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\product;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\productController;
 
@@ -21,8 +22,11 @@ Route::get('/dashboard', [App\Http\Controllers\ClientController::class, 'viewdas
 Route::get('/profile', [App\Http\Controllers\ClientController::class, 'viewprofilepage'])->name('viewprofilepage');
 Route::get('/billingsdetails', [App\Http\Controllers\ClientController::class, 'viewbillingsdetailspage'])->name('viewbillingsdetailspage');
 Route::get('/customerorders', [App\Http\Controllers\ClientController::class, 'viewcustomerorderspage'])->name('viewcustomerorderspage');
-Route::get('/productbycategory', [App\Http\Controllers\ClientController::class, 'viewproductbycategorypage'])->name('viewproductbycategorypage');
-Route::get('/productdetails', [App\Http\Controllers\ClientController::class, 'viewproductdetailspage'])->name('viewproductdetailspage');
+Route::get('/productbytopcategory/{tcatname}', [App\Http\Controllers\ClientController::class, 'viewproductbytopcategorypage']);
+Route::get('/productbymiddlecategory/{tcatname}/{mcatname}', [App\Http\Controllers\ClientController::class, 'viewproductbymiddlecategorypage']);
+Route::get('/productbyendlevelcategory/{tcatname}/{mcatname}/{ecatname}', [App\Http\Controllers\ClientController::class, 'viewproductbyendlevelcategorypage']);
+
+Route::get('/productdetails/{id}', [App\Http\Controllers\ClientController::class, 'viewproductdetailspage'])->name('viewproductdetailspage');
 Route::get('/searchproduct', [App\Http\Controllers\ClientController::class, 'viewsearchproductpage'])->name('viewsearchproductpage');
 Route::get('/loginpassword', [App\Http\Controllers\ClientController::class, 'viewloginpasswordpage'])->name('viewloginpasswordpage');
 

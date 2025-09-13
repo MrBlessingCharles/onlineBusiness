@@ -1,8 +1,8 @@
- @extends('Client_layout.master')
+ 
 
-@section('title', 'product category')
+<?php $__env->startSection('title', 'product category'); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <!-- ********************** start content ********************** -->
 
@@ -28,22 +28,22 @@
                      <div class="row">
                         <div class="col-md-5">
                            <ul class="prod-slider">
-                              <li style="background-image: url({{asset('/storage/public/productimages/'.$products->p_featured_photo) }});">
-                                 <a class="popup" href="{{asset('/storage/public/productimages/'.$products->p_featured_photo) }}"></a>
+                              <li style="background-image: url(<?php echo e(asset('/storage/public/productimages/'.$products->p_featured_photo)); ?>);">
+                                 <a class="popup" href="<?php echo e(asset('/storage/public/productimages/'.$products->p_featured_photo)); ?>"></a>
                               </li>
-                              @foreach($selectedphotos as $selected_photo)
-                              <li style="background-image: url({{asset('/storage/public/productimages/'.$selected_photo->photo) }});">
-                                 <a class="popup" href="{{asset('/storage/public/productimages/'.$selected_photo) }}"></a>
-                              @endforeach
+                              <?php $__currentLoopData = $selectedphotos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $selected_photo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                              <li style="background-image: url(<?php echo e(asset('/storage/public/productimages/'.$selected_photo->photo)); ?>);">
+                                 <a class="popup" href="<?php echo e(asset('/storage/public/productimages/'.$selected_photo)); ?>"></a>
+                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                               
                            </ul>
                            <div id="prod-pager">
-                              @foreach($selectedphotos as $selected_photo)
-                              <a data-slide-index="{{$increment++}}" href="">
-                                 <div class="prod-pager-thumb" style="background-image: url({{asset('/storage/public/productimages/'.$selected_photo) }} )"></div>
+                              <?php $__currentLoopData = $selectedphotos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $selected_photo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                              <a data-slide-index="<?php echo e($increment++); ?>" href="">
+                                 <div class="prod-pager-thumb" style="background-image: url(<?php echo e(asset('/storage/public/productimages/'.$selected_photo)); ?> )"></div>
                               </a>
-                              @endforeach
+                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                            </div>
                         </div>
                         <div class="col-md-7">
@@ -197,4 +197,5 @@
 
 	  <!-- ********************** end content ********************** -->
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('Client_layout.master', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\basiclessons\resources\views/client/productdetails.blade.php ENDPATH**/ ?>

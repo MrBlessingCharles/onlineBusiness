@@ -9,25 +9,35 @@
       <div id="bootstrap-touch-slider" class="carousel bs-slider fade control-round indicators-line" data-ride="carousel" data-pause="hover" data-interval="false" >
          <!-- Indicators -->
          <ol class="carousel-indicators">
-            <li data-target="#bootstrap-touch-slider" data-slide-to="0" class="active"></li>
-            <li data-target="#bootstrap-touch-slider" data-slide-to="1" ></li>
-            <li data-target="#bootstrap-touch-slider" data-slide-to="2" ></li>
+            <?php $__currentLoopData = $sliders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$slider): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <li data-target="#bootstrap-touch-slider"  class="<?php echo e($increment==0 ? 'active' :''); ?>"data-slide-to="<?php echo e($increment++); ?>"></li>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
          </ol>
          <!-- Wrapper For Slides -->
          <div class="carousel-inner" role="listbox">
-            <div class="item active" style="background-image:url(<?php echo e(asset('frontend/assets/uploads/slider-1.png')); ?>);">
+            <?php $__currentLoopData = $sliders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $slider): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <div class="item <?php echo e($increment1==0? 'active': ''); ?>" style="background-image:url( <?php echo e(asset('/storage/public/sliderimages/'.$slider->photo)); ?>);">
+
                <div class="bs-slider-overlay"></div>
                <div class="container">
                   <div class="row">
-                     <div class="slide-text slide_style_center">
-                        <h1 data-animation="animated flipInX">Welcome to Ecommerce PHP</h1>
-                        <p data-animation="animated fadeInDown">Shop Online for Latest Women Accessories</p>
-                        <a href="product-category.php?id=4&type=mid-category" target="_blank"  class="btn btn-primary" data-animation="animated fadeInDown">View Women Accessories</a>
+                     <div class="slide-text slide_style_<?php echo e(strtolower( $slider->position)); ?>">
+                        <h1 data-animation="animated flipInX"><?php echo e($slider->heading); ?></h1>
+                        <p data-animation="animated  <?php echo e(strtolower( $slider->position) == 'center' ?
+                         'fadeInLeft' : (strtolower( $slider->position) == 'right' ? 'fadeInRight' : 'fadeInDown')); ?>
+
+                        fadeInDown"><?php echo e($slider->content); ?></p>
+
+                        <a href="product-category.php?id=4&type=mid-category" target="_blank"  
+                        class="btn btn-primary" data-animation="animated fadeInDown"><?php echo e($slider->button_text); ?></a>
                      </div>
                   </div>
                </div>
             </div>
-            <div class="item " style="background-image:url(asset('frontend/assets/uploads/slider-2.jpg')}});">
+            <?php $increment1++; ?>
+
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <!-- <div class="item " style="background-image:url(asset('frontend/assets/uploads/slider-2.jpg')}});">
                <div class="bs-slider-overlay"></div>
                <div class="container">
                   <div class="row">
@@ -50,7 +60,7 @@
                      </div>
                   </div>
                </div>
-            </div>
+            </div> -->
          </div>
          <!-- Slider Left Control -->
          <a class="left carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="prev">
@@ -68,61 +78,18 @@
       <!-- start services -->
       <div class="service bg-gray">
          <div class="container">
-            <div class="row">
+            <div class="row">    
+               <?php $__currentLoopData = $services; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                <div class="col-md-4">
                   <div class="item">
-                     <div class="photo"><img src="<?php echo e(asset('frontend/assets/uploads/service-5.png')); ?>" width="150px" alt="Easy Returns"></div>
-                     <h3>Easy Returns</h3>
+                     <div class="photo"><img src=" <?php echo e(asset('/storage/public/serviceimage/'.$service->photo)); ?>" width="150px" alt="Easy Returns"></div>
+                     <h3><?php echo e($service->title); ?></h3>
                      <p>
-                        Return any item before 15 days!                            
+                        <?php echo e($service->content); ?>                          
                      </p>
                   </div>
                </div>
-               <div class="col-md-4">
-                  <div class="item">
-                     <div class="photo"><img src="<?php echo e(asset('frontend/assets/uploads/service-6.png')); ?>" width="150px" alt="Free Shipping"></div>
-                     <h3>Free Shipping</h3>
-                     <p>
-                        Enjoy free shipping inside US.                            
-                     </p>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="item">
-                     <div class="photo"><img src="<?php echo e(asset('frontend/assets/uploads/service-7.png')); ?>" width="150px" alt="Fast Shipping"></div>
-                     <h3>Fast Shipping</h3>
-                     <p>
-                        Items are shipped within 24 hours.                            
-                     </p>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="item">
-                     <div class="photo"><img src="<?php echo e(asset('frontend/assets/uploads/service-8.png')); ?>" width="150px" alt="Satisfaction Guarantee"></div>
-                     <h3>Satisfaction Guarantee</h3>
-                     <p>
-                        We guarantee you with our quality satisfaction.                            
-                     </p>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="item">
-                     <div class="photo"><img src="<?php echo e(asset('frontend/assets/uploads/service-9.png')); ?>" width="150px" alt="Secure Checkout"></div>
-                     <h3>Secure Checkout</h3>
-                     <p>
-                        Providing Secure Checkout Options for all                            
-                     </p>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="item">
-                     <div class="photo"><img src="<?php echo e(asset('frontend/assets/uploads/service-10.png')); ?>" width="150px" alt="Money Back Guarantee"></div>
-                     <h3>Money Back Guarantee</h3>
-                     <p>
-                        Offer money back guarantee on our products                            
-                     </p>
-                  </div>
-               </div>
+               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
          </div>
       </div>
@@ -142,91 +109,27 @@
             <div class="row">
                <div class="col-md-12">
                   <div class="product-carousel">
+                     <?php $__currentLoopData = $featured_products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $featured_product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                      <div class="item">
                         <div class="thumb">
-                           <div class="photo" style="background-image:url(<?php echo e(asset('frontend/assets/uploads/product-featured-84.jpg')); ?>);"></div>
+                           <div class="photo" style="background-image:url(<?php echo e(asset('/storage/public/productimages/'.$featured_product->p_featured_photo)); ?>);"></div>
                            <div class="overlay"></div>
                         </div>
                         <div class="text">
-                           <h3><a href="product.php?id=84">Loose-fit One-Shoulder Cutout Rib Knit Maxi Dress</a></h3>
+                           <h3><a href="<?php echo e(url('productdetails', [$featured_product->id])); ?>"><?php echo e($featured_product->p_name); ?> </a></h3>
                            <h4>
-                              $39 
+                              <?php echo e($featured_product->p_current_price); ?>
+
                               <del>
-                              $51                                    </del>
+                              <?php echo e($featured_product->p_old_price); ?>                                  </del>
                            </h4>
                            <div class="rating">
                            </div>
-                           <p><a href="product.php?id=84"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
+                           <p><a href="<?php echo e(url('productdetails', [$featured_product->id])); ?>"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
                         </div>
                      </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url(<?php echo e(asset('frontend/assets/uploads/product-featured-86.jpg')); ?>);"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=86">Amazfit GTS 3 Smart Watch for Android iPhone</a></h3>
-                           <h4>
-                              $179 
-                              <del>
-                              $199                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=86"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url(<?php echo e(asset('frontend/assets/uploads/product-featured-95.jpg')); ?>);"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=95">Bose QuietComfort 45 Bluetooth Wireless Headphones</a></h3>
-                           <h4>
-                              $279 
-                              <del>
-                              $329                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=95"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url(<?php echo e(asset('rontend/assets/uploads/product-featured-96.jpg')); ?>);"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=96">Men's Loose Fit Heavyweight Long-Sleeve Pocket T-Shirt</a></h3>
-                           <h4>
-                              $23 
-                              <del>
-                              $29                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=96"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url(<?php echo e(asset('frontend/assets/uploads/product-featured-97.jpg')); ?>);"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=97">Women's Tea Length Dress with Rosette Detail (Petite & Regular)</a></h3>
-                           <h4>
-                              $67 
-                              <del>
-                              $87                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=97"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
+                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
                   </div>
                </div>
             </div>
@@ -248,108 +151,26 @@
             <div class="row">
                <div class="col-md-12">
                   <div class="product-carousel">
+                     <?php $__currentLoopData = $latest_products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $latest_product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                      <div class="item">
                         <div class="thumb">
-                           <div class="photo" style="background-image:url(<?php echo e(asset('frontend/assets/uploads/product-featured-102.jpg')); ?>);"></div>
+                           <div class="photo" style="background-image:url(<?php echo e(asset('/storage/public/productimages/'.$latest_product->p_featured_photo)); ?>);"></div>
                            <div class="overlay"></div>
                         </div>
                         <div class="text">
-                           <h3><a href="product.php?id=102">Women's Plus-Size Shirt Dress with Gold Hardware</a></h3>
+                           <h3><a href="<?php echo e(url('productdetails', [$latest_product->id])); ?>"><?php echo e($latest_product->p_name); ?></a></h3>
                            <h4>
-                              $169 
+                              <?php echo e($latest_product->p_old_price); ?>
+
                               <del>
-                              $190                                    </del>
+                              <?php echo e($latest_product->p_current_price); ?>                                 </del>
                            </h4>
                            <div class="rating">
                            </div>
-                           <p><a href="product.php?id=102"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
+                           <p><a href="<?php echo e(url('productdetails', [$latest_product->id])); ?>"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
                         </div>
                      </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url(<?php echo e(asset('frontend/assets/uploads/product-featured-101.jpg')); ?>);"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=101">Digital Infrared Thermometer for Adults and Kids</a></h3>
-                           <h4>
-                              $70 
-                              <del>
-                              $79                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=101"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url(<?php echo e(asset('frontend/assets/uploads/product-featured-100.jpg')); ?>);"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=100">Men's Long Cuffed Jogger Yoga Sweat Pant</a></h3>
-                           <h4>
-                              $95 
-                              <del>
-                              $105                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=100"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url(<?php echo e(asset('frontend/assets/uploads/product-featured-99.jpg')); ?>);"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=99">Oculus Quest 2 - Advanced All-In-One Virtual Reality Headset</a></h3>
-                           <h4>
-                              $495 
-                              <del>
-                              $512                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=99"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url(<?php echo e(asset('frontend/assets/uploads/product-featured-98.jpg')); ?>);"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=98">Women's Fuzzy Fleece Lapel Open Front Long Cardigan Coat</a></h3>
-                           <h4>
-                              $43 
-                              <del>
-                              $52                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=98"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url(<?php echo e(asset('frontend/assets/uploads/product-featured-97.jpg')); ?>);"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=97">Women's Tea Length Dress with Rosette Detail (Petite & Regular)</a></h3>
-                           <h4>
-                              $67 
-                              <del>
-                              $87                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=97"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
+                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   </div>
                </div>
             </div>
@@ -371,142 +192,26 @@
             <div class="row">
                <div class="col-md-12">
                   <div class="product-carousel">
-                     <div class="item">
+                     <?php $__currentLoopData = $popular_products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $popular_product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                      <div class="item">
                         <div class="thumb">
-                           <div class="photo" style="background-image:url(<?php echo e(asset('frontend/assets/uploads/product-featured-84.jpg')); ?>);"></div>
+                           <div class="photo" style="background-image:url(<?php echo e(asset('/storage/public/productimages/'.$popular_product->p_featured_photo)); ?>);"></div>
                            <div class="overlay"></div>
                         </div>
                         <div class="text">
-                           <h3><a href="product.php?id=84">Loose-fit One-Shoulder Cutout Rib Knit Maxi Dress</a></h3>
+                           <h3><a href="<?php echo e(url('productdetails', [$popular_product->id])); ?>"><?php echo e($popular_product->p_name); ?></a></h3>
                            <h4>
-                              $39 
+                              <?php echo e($popular_product->p_old_price); ?>
+
                               <del>
-                              $51                                    </del>
+                              <?php echo e($popular_product->p_current_price); ?>                                 </del>
                            </h4>
                            <div class="rating">
                            </div>
-                           <p><a href="product.php?id=84"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
+                           <p><a href="<?php echo e(url('productdetails', [$popular_product->id])); ?>"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
                         </div>
                      </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url(<?php echo e(asset('frontend/assets/uploads/product-featured-92.jpg')); ?>);"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=92">Travelpro Laptop Carry-on Travel Tote Bag</a></h3>
-                           <h4>
-                              $91 
-                              <del>
-                              $110                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=92"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url(<?php echo e(asset('frontend/assets/uploads/product-featured-95.jpg')); ?>);"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=95">Bose QuietComfort 45 Bluetooth Wireless Headphones</a></h3>
-                           <h4>
-                              $279 
-                              <del>
-                              $329                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=95"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url(<?php echo e(asset('frontend/assets/uploads/product-featured-97.jpg')); ?>);"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=97">Women's Tea Length Dress with Rosette Detail (Petite & Regular)</a></h3>
-                           <h4>
-                              $67 
-                              <del>
-                              $87                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=97"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url(<?php echo e(asset('frontend/assets/uploads/product-featured-96.jpg')); ?>);"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=96">Men's Loose Fit Heavyweight Long-Sleeve Pocket T-Shirt</a></h3>
-                           <h4>
-                              $23 
-                              <del>
-                              $29                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=96"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url(<?php echo e(asset('frontend/assets/uploads/product-featured-102.jpg')); ?>);"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=102">Women's Plus-Size Shirt Dress with Gold Hardware</a></h3>
-                           <h4>
-                              $169 
-                              <del>
-                              $190                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=102"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url(<?php echo e(asset('frontend/assets/uploads/product-featured-86.jpg')); ?>);"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=86">Amazfit GTS 3 Smart Watch for Android iPhone</a></h3>
-                           <h4>
-                              $179 
-                              <del>
-                              $199                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=86"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
-                     <div class="item">
-                        <div class="thumb">
-                           <div class="photo" style="background-image:url(<?php echo e(asset('frontend/assets/uploads/product-featured-94.jpg')); ?>);"></div>
-                           <div class="overlay"></div>
-                        </div>
-                        <div class="text">
-                           <h3><a href="product.php?id=94">WD 5TB Elements Portable External Hard Drive HDD</a></h3>
-                           <h4>
-                              $149 
-                              <del>
-                              $160                                    </del>
-                           </h4>
-                           <div class="rating">
-                           </div>
-                           <p><a href="product.php?id=94"><i class="fa fa-shopping-cart"></i> Add to Cart</a></p>
-                        </div>
-                     </div>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   </div>
                </div>
             </div>

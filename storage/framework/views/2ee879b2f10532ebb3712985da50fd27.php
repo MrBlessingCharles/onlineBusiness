@@ -75,18 +75,18 @@
                            <li><a href="<?php echo e(asset('/')); ?>">Home</a></li>
                            <?php $__currentLoopData = $toplevelcategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $toplevelcategory): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                            <li>
-                              <a href="product-category.php?id=1&type=top-category"><?php echo e($toplevelcategory->tcat_name); ?></a>
+                              <a href="<?php echo e(url('productbytopcategory',[$toplevelcategory->tcat_name])); ?>"><?php echo e($toplevelcategory->tcat_name); ?></a>
                               <ul>
                                  <?php $__currentLoopData = $middlelevelcategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $middlelevelcategory): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <li>
                                        <?php if($middlelevelcategory->tcat_name == $toplevelcategory->tcat_name): ?>
                                        
-                                             <a href="product-category.php?id=1&type=mid-category"><?php echo e($middlelevelcategory->mcat_name); ?></a>
+                                             <a href="<?php echo e(url('productbymiddlecategory',[$toplevelcategory->tcat_name, $middlelevelcategory->mcat_name ])); ?>"><?php echo e($middlelevelcategory->mcat_name); ?></a>
                                              <ul>
                                                  <?php $__currentLoopData = $endlevelcategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $endlevelcategory): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                  <?php if($endlevelcategory->tcat_name == $toplevelcategory->tcat_name && $endlevelcategory->mcat_name == $middlelevelcategory->mcat_name): ?>
                                                    <li>
-                                                      <a href="product-category.php?id=1&type=end-category">
+                                                      <a href="<?php echo e(url('productbyendlevelcategory',[$toplevelcategory->tcat_name, $middlelevelcategory->mcat_name, $endlevelcategory->ecat_name ])); ?>">
                                                          <?php echo e($endlevelcategory->ecat_name); ?>
 
                                                       </a>

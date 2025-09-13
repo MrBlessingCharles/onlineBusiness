@@ -1,6 +1,7 @@
 <!-- start header  -->
 <header class="main-header">
 <a href="<?php echo e(url('/admin')); ?>" class="logo">
+    
 <span class="logo-lg">eCommerce PHP</span>
 </a>
 <nav class="navbar navbar-static-top">
