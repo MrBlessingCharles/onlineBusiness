@@ -14,17 +14,47 @@
                   <a href="<?php echo e(url('/admin/sliders')); ?>" class="btn btn-primary btn-sm">View All</a>
                </div>
             </section>
+            
+            <?php if(session('status')): ?>
+               <section class="content" style="min-height:auto;margin-bottom: -30px;">
+                     <div class="row">
+                     <div class="col-md-12">
+                        <div class="callout callout-success">
+                           <p><?php echo e(Session::get("status")); ?></p>
+                        </div>
+                     </div>
+                     </div>
+               </section>
+            <?php endif; ?>
+            <?php if(count($errors) > 0): ?>
+               <section class="content" style="min-height:auto;margin-bottom: -30px;">
+                     <div class="row">
+                     <div class="col-md-12">
+                        <div class="callout callout-danger">
+                           <ul>
+                              <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                  <li><?php echo e($error); ?></li>
+                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                           </ul>
+                        </div>
+                     </div>
+                     </div>
+               </section>
+               <?php endif; ?>
+
             <section class="content">
                <div class="row">
                   <div class="col-md-12">
-                     <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="current_photo" value="slider-1.png">
+                     <form class="form-horizontal" action="<?php echo e(url('/admin/updateslider', [$slider->id])); ?>" method="post" enctype="multipart/form-data">
+                        <?php echo csrf_field(); ?>
+                        <?php echo method_field('PUT'); ?>
+                     <input type="hidden" name="current_photo" value="slider-1.png">
                         <div class="box box-info">
                            <div class="box-body">
                               <div class="form-group">
                                  <label for="" class="col-sm-2 control-label">Existing Photo</label>
                                  <div class="col-sm-9" style="padding-top:5px">
-                                    <img src="../assets/uploads/slider-1.png" alt="Slider Photo" style="width:400px;">
+                                    <img src="<?php echo e(asset('/storage/public/sliderimages/'.$slider->photo)); ?>" alt="Slider Photo" style="width:400px;">
                                  </div>
                               </div>
                               <div class="form-group">
@@ -36,35 +66,48 @@
                               <div class="form-group">
                                  <label for="" class="col-sm-2 control-label">Heading </label>
                                  <div class="col-sm-6">
-                                    <input type="text" autocomplete="off" class="form-control" name="heading" value="Welcome to Ecommerce PHP">
+                                    <input type="text" autocomplete="off" class="form-control" name="heading" value="<?php echo e($slider->heading); ?>" required>
                                  </div>
                               </div>
                               <div class="form-group">
                                  <label for="" class="col-sm-2 control-label">Content </label>
                                  <div class="col-sm-6">
-                                    <textarea class="form-control" name="content" style="height:140px;">Shop Online for Latest Women Accessories</textarea>
+                                    <textarea class="form-control" name="content" style="height:140px;" required><?php echo e($slider->content); ?></textarea>
                                  </div>
                               </div>
                               <div class="form-group">
                                  <label for="" class="col-sm-2 control-label">Button Text </label>
                                  <div class="col-sm-6">
-                                    <input type="text" autocomplete="off" class="form-control" name="button_text" value="View Women Accessories">
+                                    <input type="text" autocomplete="off" class="form-control" name="button_text" value="<?php echo e($slider->button_text); ?>">
                                  </div>
                               </div>
                               <div class="form-group">
                                  <label for="" class="col-sm-2 control-label">Button URL </label>
                                  <div class="col-sm-6">
-                                    <input type="text" autocomplete="off" class="form-control" name="button_url" value="product-category.php?id=4&type=mid-category">
+                                    <input type="text" autocomplete="off" class="form-control" name="button_url" value="<?php echo e($slider->button_url); ?>" required>
                                  </div>
                               </div>
                               <div class="form-group">
                                  <label for="" class="col-sm-2 control-label">Position </label>
                                  <div class="col-sm-6">
                                     <select name="position" class="form-control">
+
+                                    <?php if($slider->position == 'Left'): ?>
+                                       <option value="Left" selected>Left</option>
+                                       <option value="Center" >Center</option>
+                                       <option value="Right" >Right</option>
+                                    <?php elseif($slider->position == 'Center'): ?>
+
                                        <option value="Left" >Left</option>
                                        <option value="Center" selected>Center</option>
                                        <option value="Right" >Right</option>
-                                    </select>
+                                    <?php else: ?>
+                                       <option value="Left" >Left</option>
+                                       <option value="Center" >Center</option>
+                                       <option value="Right" selected>Right</option>
+                                    <?php endif; ?>
+                                   
+                               </select>
                                  </div>
                               </div>
                               <div class="form-group">

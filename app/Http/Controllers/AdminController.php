@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\faq;
 use App\Models\size;
 use App\Models\color;
 use App\Models\banner;
@@ -121,20 +122,81 @@ class AdminController extends Controller
     
         public function viewfaq()
     {
+        $faqs= faq::get();
+        $increment = 1;
         // Logic to display the FAQ management page
-        return view('admin.faq');
+        return view('admin.faq', compact('faqs', 'increment'));
     }
 
-    public function vieweditfaq()
+    //save faq
+    public function savefaq(Request $request)
+    {
+        // Validate the incoming request data
+        $request->validate([
+            'faq_title' => 'required|string',
+            'faq_content' => 'required|string',
+        ]);
+
+        // Create a new FAQ entry
+        $faq = new faq();
+        $faq->faq_title = $request->input('faq_title');
+        $faq->faq_content = $request->input('faq_content');
+        $faq->save();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('status', 'FAQ added successfully.');
+    }
+
+    public function vieweditfaq($id)
     {
         // Logic to display the page for editing an existing FAQ
-        return view('admin.editfaq');
+        $faq = faq::find($id);
+
+
+
+        return view('admin.editfaq' , compact('faq'));
+    }
+
+    //update faq
+    public function updatefaq(Request $request, $id)
+    {
+        // Validate the incoming request data
+        $request->validate([
+            'faq_title' => 'required|string',
+            'faq_content' => 'required|string',
+        ]);
+
+        // Find the existing FAQ entry
+        $faq = faq::find($id);
+        if (!$faq) {
+            return redirect()->back()->with('error', 'FAQ not found.');
+        }
+
+        // Update the FAQ entry
+        $faq->faq_title = $request->input('faq_title');
+        $faq->faq_content = $request->input('faq_content');
+        $faq->save();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('status', 'FAQ updated successfully.');
     }
 
     public function viewaddfaq()
     {
         // Logic to display the page for adding a new FAQ
         return view('admin.addfaq');
+    }
+    //delete faq
+
+    public function deletefaq($id)
+    {
+        $faq = faq::find($id);
+        if (!$faq) {
+            return redirect()->back()->with('error', 'FAQ not found.');
+        }
+
+        $faq->delete();
+        return redirect()->back()->with('status', 'FAQ deleted successfully.');
     }
 
     public function viewregistercustomer()

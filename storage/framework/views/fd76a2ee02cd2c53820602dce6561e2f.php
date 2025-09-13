@@ -11,13 +11,39 @@
                   <h1>Add Product</h1>
                </div>
                <div class="content-header-right">
-                  <a href="product.php" class="btn btn-primary btn-sm">View All</a>
+                  <a href="<?php echo e(url('/admin/product')); ?>" class="btn btn-primary btn-sm">View All</a>
                </div>
             </section>
+            <?php if(session('status')): ?>
+               <section class="content" style="min-height:auto;margin-bottom: -30px;">
+                     <div class="row">
+                     <div class="col-md-12">
+                        <div class="callout callout-success">
+                           <p><?php echo e(Session::get("status")); ?></p>
+                        </div>
+                     </div>
+                     </div>
+               </section>
+            <?php endif; ?>
+            <?php if(count($errors) > 0): ?>
+               <section class="content" style="min-height:auto;margin-bottom: -30px;">
+                     <div class="row">
+                     <div class="col-md-12">
+                        <div class="callout callout-danger">
+                           <ul>
+                              <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                  <li><?php echo e($error); ?></li>
+                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                           </ul>
+                        </div>
+                     </div>
+                     </div>
+               </section>
+               <?php endif; ?>
             <section class="content">
                <div class="row">
                   <div class="col-md-12">
-                     <form class="form-horizontal" action="<?php echo e(url('admin/saveproduct'); ?>" method="post" enctype="multipart/form-data">
+                     <form class="form-horizontal" action="<?php echo e(url('admin/saveproduct')); ?>" method="post" enctype="multipart/form-data">
                         <?php echo csrf_field(); ?>
                         <div class="box box-info">
                            <div class="box-body">
@@ -28,7 +54,7 @@
                                        <option value="">Select Top Level Category</option>
 
                                        <?php $__currentLoopData = $topcategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $topcategory): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                          <option value="$topcategory->tcat_name"><?php echo e($topcategory->tcat_name); ?></option>
+                                          <option value="<?php echo e($topcategory->tcat_name); ?>"><?php echo e($topcategory->tcat_name); ?></option>
                                        
                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
@@ -40,7 +66,7 @@
                                     <select name="mcat_name" class="form-control select2 mid-cat"required>
                                        <option value="">Select Mid Level Category</option>
                                        <?php $__currentLoopData = $middlecategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $middlecategory): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                          <option value="$middlecategory->mcat_name"><?php echo e($middlecategory->mcat_name); ?></option>
+                                          <option value="<?php echo e($middlecategory->mcat_name); ?>"><?php echo e($middlecategory->mcat_name); ?></option>
                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                        </select>
                                  </div>
@@ -51,7 +77,7 @@
                                     <select name="ecat_name" class="form-control select2 end-cat" required>
                                        <option value="">Select End Level Category</option>
                                        <?php $__currentLoopData = $endcategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $endcategory): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                          <option value="$endcategory->ecat_name"><?php echo e($endcategory->ecat_name); ?></option>
+                                          <option value="<?php echo e($endcategory->ecat_name); ?>"><?php echo e($endcategory->ecat_name); ?></option>
                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                  </div>
@@ -85,7 +111,7 @@
                                  <div class="col-sm-4">
                                     <select name="size[]" class="form-control select2" multiple="multiple" required>
                                        <?php $__currentLoopData = $sizes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $size): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                          <option value="$size->size"><?php echo e($size->size); ?></option>
+                                          <option value="<?php echo e($size->size); ?>"><?php echo e($size->size); ?></option>
                                        
                                       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
@@ -96,7 +122,7 @@
                                  <div class="col-sm-4">
                                     <select name="color[]" class="form-control select2" multiple="multiple" required>
                                        <?php $__currentLoopData = $colors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $color): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                          <option value="$color->color_name"><?php echo e($color->color_name); ?></option>
+                                          <option value="<?php echo e($color->color_name); ?>"><?php echo e($color->color_name); ?></option>
                                       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                     </select>

@@ -14,6 +14,8 @@
                   <a href="<?php echo e(url('/admin/addservice')); ?>" class="btn btn-primary btn-sm">Add Service</a>
                </div>
             </section>
+
+
             <section class="content">
                <div class="row">
                   <div class="col-md-12">
@@ -30,66 +32,25 @@
                                  </tr>
                               </thead>
                               <tbody>
+                                 <?php $__currentLoopData = $services; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                  <tr>
-                                    <td>1</td>
-                                    <td style="width:130px;"><img src="../assets/uploads/service-5.png" alt="Easy Returns" style="width:120px;"></td>
-                                    <td>Easy Returns</td>
-                                    <td>Return any item before 15 days!</td>
-                                    <td>										
-                                       <a href="service-edit.php?id=5" class="btn btn-primary btn-xs">Edit</a>
-                                       <a href="#" class="btn btn-danger btn-xs" data-href="service-delete.php?id=5" data-toggle="modal" data-target="#confirm-delete">Delete</a>  
-                                    </td>
+                                    <td><?php echo e($increment++); ?></td>
+                                    <td style="width:130px;"><img src="<?php echo e(asset('/storage/public/serviceimage/'.$service->photo)); ?>" alt="Easy Returns" style="width:120px;"></td>
+                                    <td><?php echo e($service->title); ?></td>
+                                    <td><?php echo e($service->content); ?></td>
+                                    <td style="display: flex;">
+                                    <a href="<?php echo e(url('admin/editservice', [$service->id])); ?>" class="btn btn-primary btn-xs">Edit</a>
+                                    <!-- <a href="#" class="btn btn-danger btn-xs" data-href="size-delete.php?id=1" data-toggle="modal" data-target="#confirm-delete">Delete</a> -->
+                                    <form action="<?php echo e(url('admin/deleteservice', [$service->id])); ?>" method="post">
+                                       <?php echo csrf_field(); ?>
+                                       <?php echo method_field('DELETE'); ?>
+   
+                                       <button type="submit" class="btn btn-danger btn-xs" style="margin-left:5px;">Delete</button>
+                                    </form> 
+
+                                 </td>
                                  </tr>
-                                 <tr>
-                                    <td>2</td>
-                                    <td style="width:130px;"><img src="../assets/uploads/service-6.png" alt="Free Shipping" style="width:120px;"></td>
-                                    <td>Free Shipping</td>
-                                    <td>Enjoy free shipping inside US.</td>
-                                    <td>										
-                                       <a href="service-edit.php?id=6" class="btn btn-primary btn-xs">Edit</a>
-                                       <a href="#" class="btn btn-danger btn-xs" data-href="service-delete.php?id=6" data-toggle="modal" data-target="#confirm-delete">Delete</a>  
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>3</td>
-                                    <td style="width:130px;"><img src="../assets/uploads/service-7.png" alt="Fast Shipping" style="width:120px;"></td>
-                                    <td>Fast Shipping</td>
-                                    <td>Items are shipped within 24 hours.</td>
-                                    <td>										
-                                       <a href="service-edit.php?id=7" class="btn btn-primary btn-xs">Edit</a>
-                                       <a href="#" class="btn btn-danger btn-xs" data-href="service-delete.php?id=7" data-toggle="modal" data-target="#confirm-delete">Delete</a>  
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>4</td>
-                                    <td style="width:130px;"><img src="../assets/uploads/service-8.png" alt="Satisfaction Guarantee" style="width:120px;"></td>
-                                    <td>Satisfaction Guarantee</td>
-                                    <td>We guarantee you with our quality satisfaction.</td>
-                                    <td>										
-                                       <a href="service-edit.php?id=8" class="btn btn-primary btn-xs">Edit</a>
-                                       <a href="#" class="btn btn-danger btn-xs" data-href="service-delete.php?id=8" data-toggle="modal" data-target="#confirm-delete">Delete</a>  
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>5</td>
-                                    <td style="width:130px;"><img src="../assets/uploads/service-9.png" alt="Secure Checkout" style="width:120px;"></td>
-                                    <td>Secure Checkout</td>
-                                    <td>Providing Secure Checkout Options for all</td>
-                                    <td>										
-                                       <a href="service-edit.php?id=9" class="btn btn-primary btn-xs">Edit</a>
-                                       <a href="#" class="btn btn-danger btn-xs" data-href="service-delete.php?id=9" data-toggle="modal" data-target="#confirm-delete">Delete</a>  
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td>6</td>
-                                    <td style="width:130px;"><img src="../assets/uploads/service-10.png" alt="Money Back Guarantee" style="width:120px;"></td>
-                                    <td>Money Back Guarantee</td>
-                                    <td>Offer money back guarantee on our products</td>
-                                    <td>										
-                                       <a href="service-edit.php?id=10" class="btn btn-primary btn-xs">Edit</a>
-                                       <a href="#" class="btn btn-danger btn-xs" data-href="service-delete.php?id=10" data-toggle="modal" data-target="#confirm-delete">Delete</a>  
-                                    </td>
-                                 </tr>
+                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                               </tbody>
                            </table>
                         </div>

@@ -12,6 +12,7 @@ Route::get('/', [App\Http\Controllers\ClientController::class, 'home'])->name('h
 Route::get('/about', [App\Http\Controllers\ClientController::class, 'about'])->name('about');
 Route::get('/contact', [App\Http\Controllers\ClientController::class, 'contactpage'])->name('contactpage');
 Route::get('/faq', [App\Http\Controllers\ClientController::class, 'faqpage'])->name('faqpage');
+
 Route::get('/login', [App\Http\Controllers\ClientController::class, 'viewloginpage'])->name('viewloginpage');
 Route::get('/register', [App\Http\Controllers\ClientController::class, 'viewregisterpage'])->name('viewregisterpage');
 Route::get('/cart', [App\Http\Controllers\ClientController::class, 'viewcartpage'])->name('viewcarpage');
@@ -59,7 +60,12 @@ Route::delete('/admin/deleteendlevelcategory/{id}', [App\Http\Controllers\Catego
 
 Route::get('/admin/faq', [App\Http\Controllers\AdminController::class, 'viewfaq'])->name('viewfaq');
 Route::get('/admin/addfaq', [App\Http\Controllers\AdminController::class, 'viewaddfaq'])->name('viewaddfaq');
-Route::get('/admin/editfaq', [App\Http\Controllers\AdminController::class, 'vieweditfaq'])->name('vieweditfaq');
+Route::post('/admin/savefaq', [App\Http\Controllers\AdminController::class, 'savefaq'])->name('savefaq');
+Route::get('/admin/editfaq/{id}', [App\Http\Controllers\AdminController::class, 'vieweditfaq'])->name('vieweditfaq');
+Route::put('/admin/updatefaq/{id}', [App\Http\Controllers\AdminController::class, 'updatefaq'])->name('updatefaq');
+Route::delete('/admin/deletefaq/{id}', [App\Http\Controllers\AdminController::class, 'deletefaq'])->name('deletefaq');
+
+
 Route::get('/admin/registercustomer', [App\Http\Controllers\AdminController::class, 'viewregistercustomer'])->name('viewregistercustomer');
 Route::get('/admin/pagesettings', [App\Http\Controllers\AdminController::class, 'viewpagesettings'])->name('viewpagesettings');
 Route::get('/admin/socialmedia', [App\Http\Controllers\AdminController::class, 'viewsocialmedia'])->name('viewsocialmedia');
@@ -72,19 +78,31 @@ Route::get('/admin/adminprofile', [App\Http\Controllers\AdminController::class, 
 
 Route::get('/admin/product', [App\Http\Controllers\ProductController::class, 'viewproduct']);
 Route::get('/admin/addproduct', [App\Http\Controllers\ProductController::class, 'viewaddproduct']);
-Route::get('/admin/editproduct', [App\Http\Controllers\ProductController::class, 'vieweditproduct']);
+Route::get('/admin/editproduct/{id}', [App\Http\Controllers\ProductController::class, 'vieweditproduct']);
 Route::post('/admin/saveproduct', [App\Http\Controllers\ProductController::class, 'saveproduct']);
+Route::put('/admin/updateproduct/{id}', [App\Http\Controllers\ProductController::class, 'updateproduct']);
+Route::get('/admin/deleteortherphoto/{id}/{photos}', [App\Http\Controllers\ProductController::class, 'deleteortherphoto']);
+Route::delete('/admin/deleteproduct/{id}', [App\Http\Controllers\ProductController::class, 'deleteproduct']);
+
 
 Route::get('/admin/orders', [App\Http\Controllers\ProductController::class, 'vieworders'])->name('vieworders');
 
 // Slider routes
 Route::get('/admin/sliders', [App\Http\Controllers\SliderController::class, 'viewsliders'])->name('viewsliders');
 Route::get('/admin/addslider', [App\Http\Controllers\SliderController::class, 'viewaddslider'])->name('viewaddslider');
-Route::get('/admin/editslider', [App\Http\Controllers\SliderController::class, 'vieweditslider'])->name('vieweditslider');
+Route::post('/admin/saveslider', [App\Http\Controllers\SliderController::class, 'saveslider']);
+Route::get('/admin/editslider/{id}', [App\Http\Controllers\SliderController::class, 'vieweditslider'])->name('vieweditslider');
+Route::put('/admin/updateslider/{id}', [App\Http\Controllers\SliderController::class, 'updateslider']);
+Route::delete('/admin/deleteslider/{id}', [App\Http\Controllers\SliderController::class, 'deleteslider']);
+
+
 // Additional routes can be added here as needed
 Route::get('/admin/services', [App\Http\Controllers\SliderController::class, 'viewservices'])->name('viewservices');
 Route::get('/admin/addservice', [App\Http\Controllers\SliderController::class, 'viewaddservice'])->name('viewaddservice');
-Route::get('/admin/editservice', [App\Http\Controllers\SliderController::class, 'vieweditservice'])->name('vieweditservice');
+Route::post('/admin/saveservices', [App\Http\Controllers\SliderController::class, 'saveservices']);
+Route::get('/admin/editservice/{id}', [App\Http\Controllers\SliderController::class, 'vieweditservice'])->name('vieweditservice');
+Route::put('/admin/updateservice/{id}', [App\Http\Controllers\SliderController::class, 'updateservice']);
+Route::delete('/admin/deleteservice/{id}', [App\Http\Controllers\SliderController::class, 'deleteservice']);
 
 //settings routes
 Route::post('/admin/savelogo', [App\Http\Controllers\SettingController::class, 'saveLogo']);

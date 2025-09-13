@@ -11,13 +11,39 @@
                   <h1>Add Product</h1>
                </div>
                <div class="content-header-right">
-                  <a href="product.php" class="btn btn-primary btn-sm">View All</a>
+                  <a href="{{url('/admin/product')}}" class="btn btn-primary btn-sm">View All</a>
                </div>
             </section>
+            @if(session('status'))
+               <section class="content" style="min-height:auto;margin-bottom: -30px;">
+                     <div class="row">
+                     <div class="col-md-12">
+                        <div class="callout callout-success">
+                           <p>{{Session::get("status")}}</p>
+                        </div>
+                     </div>
+                     </div>
+               </section>
+            @endif
+            @if (count($errors) > 0)
+               <section class="content" style="min-height:auto;margin-bottom: -30px;">
+                     <div class="row">
+                     <div class="col-md-12">
+                        <div class="callout callout-danger">
+                           <ul>
+                              @foreach ($errors->all() as $error)
+                                  <li>{{ $error }}</li>
+                              @endforeach
+                           </ul>
+                        </div>
+                     </div>
+                     </div>
+               </section>
+               @endif
             <section class="content">
                <div class="row">
                   <div class="col-md-12">
-                     <form class="form-horizontal" action="{{url('admin/saveproduct'}}" method="post" enctype="multipart/form-data">
+                     <form class="form-horizontal" action="{{url('admin/saveproduct')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="box box-info">
                            <div class="box-body">
@@ -28,7 +54,7 @@
                                        <option value="">Select Top Level Category</option>
 
                                        @foreach($topcategories as $topcategory)
-                                          <option value="$topcategory->tcat_name">{{$topcategory->tcat_name}}</option>
+                                          <option value="{{$topcategory->tcat_name}}">{{$topcategory->tcat_name}}</option>
                                        
                                        @endforeach
                                     </select>
@@ -40,7 +66,7 @@
                                     <select name="mcat_name" class="form-control select2 mid-cat"required>
                                        <option value="">Select Mid Level Category</option>
                                        @foreach($middlecategories as $middlecategory)
-                                          <option value="$middlecategory->mcat_name">{{$middlecategory->mcat_name}}</option>
+                                          <option value="{{$middlecategory->mcat_name}}">{{$middlecategory->mcat_name}}</option>
                                        @endforeach
                                        </select>
                                  </div>
@@ -51,7 +77,7 @@
                                     <select name="ecat_name" class="form-control select2 end-cat" required>
                                        <option value="">Select End Level Category</option>
                                        @foreach($endcategories as $endcategory)
-                                          <option value="$endcategory->ecat_name">{{$endcategory->ecat_name}}</option>
+                                          <option value="{{$endcategory->ecat_name}}">{{$endcategory->ecat_name}}</option>
                                        @endforeach
                                     </select>
                                  </div>
@@ -85,7 +111,7 @@
                                  <div class="col-sm-4">
                                     <select name="size[]" class="form-control select2" multiple="multiple" required>
                                        @foreach($sizes as $size)
-                                          <option value="$size->size">{{$size->size}}</option>
+                                          <option value="{{$size->size}}">{{$size->size}}</option>
                                        
                                       @endforeach
                                     </select>
@@ -96,7 +122,7 @@
                                  <div class="col-sm-4">
                                     <select name="color[]" class="form-control select2" multiple="multiple" required>
                                        @foreach($colors as $color)
-                                          <option value="$color->color_name">{{$color->color_name}}</option>
+                                          <option value="{{$color->color_name}}">{{$color->color_name}}</option>
                                       @endforeach
 
                                     </select>

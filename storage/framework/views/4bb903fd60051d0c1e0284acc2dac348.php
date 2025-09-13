@@ -14,10 +14,23 @@
                   <a href="<?php echo e(url('admin/faq')); ?>" class="btn btn-primary btn-sm">View All</a>
                </div>
             </section>
+            <?php if(session('status')): ?>
+               <section class="content" style="min-height:auto;margin-bottom: -30px;">
+                     <div class="row">
+                     <div class="col-md-12">
+                        <div class="callout callout-success">
+                           <p><?php echo e(Session::get("status")); ?></p>
+                        </div>
+                     </div>
+                     </div>
+               </section>
+            <?php endif; ?>
             <section class="content">
                <div class="row">
                   <div class="col-md-12">
-                     <form class="form-horizontal" action="" method="post">
+                     <form class="form-horizontal" action="<?php echo e(url('admin/savefaq')); ?>" method="post">
+                        <?php echo csrf_field(); ?>
+                        
                         <div class="box box-info">
                            <div class="box-body">
                               <div class="form-group">

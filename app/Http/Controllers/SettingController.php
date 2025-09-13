@@ -27,7 +27,7 @@ class SettingController extends Controller
             'photo_logo' => 'required|image|nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
     
-    //file name with extension
+        //file name with extension
         $fileNameWithExt = $request->file('photo_logo')->getClientOriginalName();
         //just file name
         $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);

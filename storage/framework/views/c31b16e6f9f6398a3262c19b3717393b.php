@@ -12,29 +12,61 @@
                   <a href="<?php echo e(url('/admin/services')); ?>" class="btn btn-primary btn-sm">View All</a>
                </div>
             </section>
+
+            <?php if(session('status')): ?>
+                        <section class="content" style="min-height:auto;margin-bottom: -30px;">
+                                <div class="row">
+                                <div class="col-md-12">
+                                    <div class="callout callout-success">
+                                    <p><?php echo e(Session::get("status")); ?></p>
+                                    </div>
+                                </div>
+                                </div>
+                        </section>
+                        <?php endif; ?>
+                        <?php if(count($errors) > 0): ?>
+                        <section class="content" style="min-height:auto;margin-bottom: -30px;">
+                                <div class="row">
+                                <div class="col-md-12">
+                                    <div class="callout callout-danger">
+                                    <ul>
+                                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <li><?php echo e($error); ?></li>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </ul>
+                                    </div>
+                                </div>
+                                </div>
+                        </section>
+            <?php endif; ?>
+
+
             <section class="content">
                <div class="row">
                   <div class="col-md-12">
-                     <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="current_photo" value="service-5.png">
+                     <form class="form-horizontal" action="<?php echo e(url('admin/updateservice', [$service->id])); ?>" method="post" enctype="multipart/form-data">
+                     <?php echo csrf_field(); ?>
+                     <?php echo method_field('PUT'); ?>   
+
+                     <input type="hidden" name="current_photo" value="service-5.png">
                         <div class="box box-info">
                            <div class="box-body">
                               <div class="form-group">
                                  <label for="" class="col-sm-2 control-label">Title <span>*</span></label>
                                  <div class="col-sm-6">
-                                    <input type="text" autocomplete="off" class="form-control" name="title" value="Easy Returns">
+                                    <input type="text" autocomplete="off" class="form-control" name="title" value="<?php echo e($service->title); ?>" required>
                                  </div>
                               </div>
                               <div class="form-group">
                                  <label for="" class="col-sm-2 control-label">Content <span>*</span></label>
                                  <div class="col-sm-6">
-                                    <textarea class="form-control" name="content" style="height:140px;">Return any item before 15 days!</textarea>
+                                    <textarea class="form-control" name="content" style="height:140px;"required><?php echo e($service->content); ?></textarea>
                                  </div>
                               </div>
                               <div class="form-group">
                                  <label for="" class="col-sm-2 control-label">Existing Photo</label>
                                  <div class="col-sm-9" style="padding-top:5px">
-                                    <img src="../assets/uploads/service-5.png" alt="Service Photo" style="width:180px;">
+                                    <img src="<?php echo e(asset('/storage/public/serviceimage/'.$service->photo)); ?>" alt="Service Photo" style="width:180px;">
                                  </div>
                               </div>
                               <div class="form-group">

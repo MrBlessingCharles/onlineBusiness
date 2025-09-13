@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('tcat_name');
+             $table->string('tcat_name');
             $table->string('mcat_name');
             $table->string('ecat_name');
             $table->string('p_name');
@@ -24,12 +24,14 @@ return new class extends Migration
             $table->mediumText('color');
             $table->string('p_featured_photo');
             $table->mediumText('photos');
-            $table->mediumText('p_shortdescription');
+            $table->mediumText('p_description');
+            $table->mediumText('p_short_description');
             $table->mediumText('p_feature');
             $table->mediumText('p_condition');
             $table->mediumText('p_return_policy');
             $table->integer('p_is_featured');
             $table->integer('p_is_active');
+            
             $table->timestamps();
         });
     }
